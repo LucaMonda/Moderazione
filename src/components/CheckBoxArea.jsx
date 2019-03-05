@@ -59,7 +59,7 @@ class CheckBoxArea extends Component {
                 {
                     this.state.checkboxes.map((checkbox, idx) =>
                         <CheckBoxAbuse key={idx} icon={null} title={checkbox.title} id ={"checkbox"+idx} desc={checkbox.desc}
-                                       value={idx} handleCheckBoxSelected={this.handleCheckBoxSelected} handleCheckBoxUnselected={this.handleCheckBoxUnselected}/>
+                                       handleCheckBoxSelected={this.handleCheckBoxSelected} handleCheckBoxUnselected={this.handleCheckBoxUnselected}/>
                     )
                 }
                 <button className="send-categories"

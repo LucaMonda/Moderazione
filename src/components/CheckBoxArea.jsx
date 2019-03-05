@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import CheckBoxAbuse from './CheckBoxAbuse.jsx';
+import '../styles/CheckBoxArea.css';
 
 class CheckBoxArea extends Component {
 
@@ -13,19 +14,24 @@ class CheckBoxArea extends Component {
             checkboxes: [
                 {
                     title: 'Insulto',
-                    desc: 'parolacce, insulti, offese'
+                    desc: 'Parolacce, riferimenti al sesso, ecc.',
+                    icon: "/src/images/icons/insulto/grey.svg"
                 },
                 {
                     title: 'Minaccia',
-                    desc: 'minacce contro qualcuno'
+                    desc: 'Violenza, minacce, provocazioni, ecc.',
+                    icon: "/src/images/icons/minaccia/grey.svg"
+                },
+                {
+                    title: 'Osceno',
+                    desc: 'Offese, insulti, attacchi personali, ecc.',
+                    icon: "/src/images/icons/osceno/grey.svg"
                 },
                 {
                     title: 'Odio Raziale',
-                    desc: 'razzismo nei confronti di altri'
-                },
-                {
-                    title: 'Altro',
-                    desc: 'altri tipi di offese'
+                    desc: 'Riferimenti ad etnie, luoghi comuni regionali, ecc.',
+                    icon: "/src/images/icons/raziale/grey.svg"
+
                 }
             ],
             checkBoxClicked: [],
@@ -62,12 +68,12 @@ class CheckBoxArea extends Component {
             <div className="checkbox-area">
                 {
                     this.state.checkboxes.map((checkbox, idx) =>
-                        <CheckBoxAbuse key={idx} icon={null} title={checkbox.title} id ={"checkbox"+idx} desc={checkbox.desc} value={idx}
+                        <CheckBoxAbuse key={idx} icon={checkbox.icon} title={checkbox.title} id ={"checkbox"+idx} desc={checkbox.desc} value={idx}
                                        handleCheckBoxSelected={this.handleCheckBoxSelected} handleCheckBoxUnselected={this.handleCheckBoxUnselected}/>
                     )
                 }
                 <button className="send-categories"
-                        onClick={this.sendCategories}>Send
+                        onClick={this.sendCategories}>AVANTI
                 </button>
             </div>
         )

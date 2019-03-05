@@ -25,9 +25,12 @@ class CheckBoxAbuse extends Component {
     render() {
         return(
             <div className="checkbox-div">
-                <input type="checkbox" onChange={this.isSelected} id={this.props.id} name ="{this.state.title}" value="{this.state.index}"/>
-                <label>{this.state.title}</label>
-                <label>{this.state.desc}</label>
+                <input type="checkbox" src={this.state.icon} onChange={this.isSelected} id={this.props.id} name={this.state.title} value={this.state.index}/>
+                <label htmlFor={this.props.id} className="title-label">{this.state.title}
+                    <label htmlFor={this.props.id} className="content-label">{this.state.desc}
+                        <img src="../images/insulto/img.png"/>
+                    </label>
+                </label>
             </div>
         )
     }

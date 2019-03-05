@@ -30,7 +30,7 @@ class App extends Component {
             this.setState({
                 sentenceId: data.id
             });
-            document.getElementById("text").value = data.content;
+            document.getElementById("text").innerHTML = data.content;
         })
     }
 
@@ -59,9 +59,11 @@ class App extends Component {
     render() {
         return (
           <div className="container">
-            <h4 className="username-name">@Username</h4>
-            <input type="text" id="text" className="sentence-text" readOnly="readonly"/>
-            <CheckBoxArea sendSentence={this.sendSentence}/>
+              <div className="container-user-context">
+                  <p className="username-name">@Username</p>
+              </div>
+              <p id="text" className="sentence-text">Se parli così è perchè non capisci un cazzo come tutti i napoletani!</p>
+                  <CheckBoxArea sendSentence={this.sendSentence}/>
           </div>
         );
   }

@@ -1,0 +1,15 @@
+.checkbox-area{
+    margin-top:100px;
+}
+
+.send-categories{
+    padding:30px 0px 30px 0px;
+    width:400px;
+    line-height: 1.5;
+    font-weight: bold;
+    border-radius:3px;
+    font-size:43px;
+    background-color:#242EE5;
+    color:white;
+    margin-top:60px;
+}

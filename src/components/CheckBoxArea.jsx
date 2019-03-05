@@ -38,6 +38,7 @@ class CheckBoxArea extends Component {
             document.getElementById("checkbox"+i).checked = false;
         }
         this.props.sendSentence(this.state.checkBoxClicked);
+        this.setState({checkBoxClicked: []});
     }
 
     handleCheckBoxSelected(id){

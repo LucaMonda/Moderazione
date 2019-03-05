@@ -5,7 +5,7 @@ class CheckBoxAbuse extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            index : this.props.key,
+            index : this.props.value,
             icon : this.props.icon,
             title :this.props.title,
             desc : this.props.desc

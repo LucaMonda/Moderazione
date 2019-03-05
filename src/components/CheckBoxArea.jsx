@@ -34,7 +34,10 @@ class CheckBoxArea extends Component {
     }
 
     sendCategories() {
-       this.props.sendSentence(this.state.checkBoxClicked);
+        for (let i =0;i< this.state.checkboxes.length;i++){
+            document.getElementById("checkbox"+i).checked = false;
+        }
+        this.props.sendSentence(this.state.checkBoxClicked);
     }
 
     handleCheckBoxSelected(id){
@@ -58,7 +61,7 @@ class CheckBoxArea extends Component {
             <div className="checkbox-area">
                 {
                     this.state.checkboxes.map((checkbox, idx) =>
-                        <CheckBoxAbuse key={idx} icon={null} title={checkbox.title} id ={"checkbox"+idx} desc={checkbox.desc}
+                        <CheckBoxAbuse key={idx} icon={null} title={checkbox.title} id ={"checkbox"+idx} desc={checkbox.desc} value={idx}
                                        handleCheckBoxSelected={this.handleCheckBoxSelected} handleCheckBoxUnselected={this.handleCheckBoxUnselected}/>
                     )
                 }

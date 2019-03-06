@@ -7,43 +7,23 @@ class AbuseItem extends Component {
 
         this.uncheckedImage = require("../images/"+this.props.title.toLowerCase()+"/grey.svg");
         this.checkedImage = require("../images/"+this.props.title.toLowerCase()+"/blue.svg");
-
-        this.state = {
-            index : this.props.value,
-            icon : this.props.icon,
-            title :this.props.title,
-            desc : this.props.desc,
-            checked: this.uncheckedImage
-        };
-
-        this.handleClickDiv = this.handleClickDiv.bind(this);
     }
 
-
-    handleClickDiv(){
-        /*
-        var href = window.location.href.replace(/.$/,"")
-        if(document.getElementById(this.props.id).src === href+this.uncheckedImage){
-            document.getElementById(this.props.id).src=this.checkedImage;
-            this.props.handleDivSelected(this.state.index);
-        }else{
-            document.getElementById(this.props.id).src=this.uncheckedImage;
-            this.props.handleDivUnselected(this.state.index);
-        }*/
-        this.setState({checked: this.state.checked === this.checkedImage ? this.uncheckedImage : this.checkedImage })
+    getImageByCheckedValue(isChecked) {
+        return isChecked ? this.checkedImage : this.uncheckedImage;
     }
 
     render() {
         return(
-            <div className="checkbox-abuse-div"  onClick={this.handleClickDiv}>
+            <div className="checkbox-abuse-div" onClick={() => this.props.onChange(this.props.value)}>
                 <div className="checkbox-div">
-                    <img src={this.state.checked} id={this.props.id} alt=""/>
+                    <img src={this.getImageByCheckedValue(this.props.checked)} alt=""/>
                 </div>
                 <div className="label-title-div">
-                    <div htmlFor={this.props.id} className="title-label">{this.state.title} </div>
+                    <div className="title-label">{this.props.title} </div>
                 </div>
                 <div className={"label-description-div"}>
-                    <div htmlFor={this.props.id} className="content-label">{this.state.desc}</div>
+                    <div className="content-label">{this.props.desc}</div>
                 </div>
             </div>
         )

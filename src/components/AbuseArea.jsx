@@ -7,89 +7,83 @@ class CheckBoxArea extends Component {
 
     constructor(props) {
         super(props);
-        this.handleDivSelected = this.handleDivSelected.bind(this);
-        this.handleDivUnselected = this.handleDivUnselected.bind(this);
         this.sendCategories = this.sendCategories.bind(this);
-        //this.uncheckAllDiv = this.uncheckAllDiv.bind(this);
+        this.onChange = this.onChange.bind(this);
 
         this.state = {
             checkboxes: [
                 {
+                    value: 0,
                     title: 'OSCENO',
                     desc: 'Offese, insulti, attacchi personali, ecc.',
-                    imageGrey :  "../images/osceno/grey.svg"
+                    imageGrey: "../images/osceno/grey.svg",
+                    checked: false
                 },
                 {
+                    value: 1,
                     title: 'MINACCIA',
                     desc: 'Violenza, minacce, provocazioni, ecc.',
-                    imageGrey :  "../images/minaccia/grey.svg"
+                    imageGrey: "../images/minaccia/grey.svg",
+                    checked: false
                 },
                 {
+                    value: 2,
                     title: 'INSULTO',
                     desc: 'Parolacce, riferimenti al sesso, ecc.',
-                    imageGrey :  "../images/insulto/grey.svg"
+                    imageGrey: "../images/insulto/grey.svg",
+                    checked: false
                 },
                 {
+                    value: 3,
                     title: 'RAZZIALE',
                     desc: 'Riferimenti ad etnie, luoghi comuni regionali, ecc.',
-                    imageGrey :  "../images/razziale/grey.svg"
+                    imageGrey: "../images/razziale/grey.svg",
+                    checked: false
                 }
             ],
-            checkBoxClicked: [],
         }
+    }
 
-
+    onChange(value) {
+        let checkboxes = this.state.checkboxes;
+        checkboxes.filter((checkbox) => checkbox.value === value).map((checkbox) => checkbox.checked = !checkbox.checked)
+        this.setState({checkboxes: checkboxes})
     }
 
     sendCategories() {
-        //this.uncheckAllDiv();
-        this.props.sendSentence(this.state.checkBoxClicked);
-        this.setState({checkBoxClicked: []});
-        return this.state.checkBoxClicked;
-    }
+        let checkboxes = this.state.checkboxes;
+        let checkboxClicked = [];
 
-    /*
-    uncheckAllDiv(){
-        for (let i =0;i< this.state.checkboxes.length;i++){
-            document.getElementById("checkbox"+i).src = require(this.state.checkboxes[i].imageGrey);
-        }
-    }
-    */
+        checkboxes.forEach((checkbox) => {
+            if (!checkbox.checked) {
+                return
+            }
 
-    handleDivSelected(value){
-        this.setState(prevState => ({
-            checkBoxClicked: [...prevState.checkBoxClicked, value]
-        }));
-        return this.state.checkBoxClicked
-    }
+            checkboxClicked.push(checkbox.value)
+        });
 
-    handleDivUnselected(value){
-        const array = [...this.state.checkBoxClicked];
-        const index = array.indexOf(value);
-        if (index !== -1) {
-            array.splice(index, 1);
-            this.setState({checkBoxClicked: array});
-        }
-        return this.state.checkBoxClicked
+        this.props.sendSentence(checkboxClicked);
+
+
+        checkboxes.map((checkbox) => checkbox.checked = false)
+        this.setState({checkboxes: checkboxes})
     }
 
     render() {
         return (
             <div className="container-checkbox-area">
                 <div className="checkboxes-container">
-                {
-                    this.state.checkboxes.map((checkbox, idx) =>
-                        <AbuseItem
-                            key={idx}
-                            title={checkbox.title}
-                            id ={"checkbox"+idx}
-                            desc={checkbox.desc}
-                            value={idx}
-                            handleDivSelected={this.handleDivSelected}
-                            handleDivUnselected={this.handleDivUnselected}
-                        />
-                    )
-                }
+                    {
+                        this.state.checkboxes.map((checkbox) =>
+                            <AbuseItem
+                                key={checkbox.value}
+                                value={checkbox.value}
+                                title={checkbox.title}
+                                desc={checkbox.desc}
+                                checked={checkbox.checked}
+                                onChange={this.onChange}/>
+                        )
+                    }
                 </div>
                 <div className="button-container">
                     <button className="send-info-button"

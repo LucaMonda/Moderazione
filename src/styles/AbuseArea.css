@@ -1,0 +1,21 @@
+.checkboxes-container{
+    margin-top:50px;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+}
+
+.button-container{
+    text-align:center;
+    margin-top:60px;
+}
+.send-info-button{
+    padding:10px 0px 10px 0px;
+    width:400px;
+    line-height: 1.5;
+    border-radius:3px;
+    font-size:43px;
+    font-weight: 500;
+    background-color:#242EE5;
+    color:white;
+}

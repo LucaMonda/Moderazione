@@ -3,39 +3,86 @@ import {shallow} from 'enzyme';
 import AbuseArea from "./AbuseArea";
 
 
-describe("CheckBoxArea", () => {
+describe("AbuseArea", () => {
     let props = {
-        sendSentence: (value) => {
-        }
+        sendSentence: (value) => jest.fn()
     }
     const enzyme = require("enzyme");
     const Adapter = require("enzyme-adapter-react-16");
     enzyme.configure({ adapter: new Adapter() });
 
-    it("adds value when checkbox is selected", () => {
+    it("changes value of a checkbox", () =>{
         let wrapper = shallow(<AbuseArea/>);
-        const value = "2";
-        wrapper.instance().state.checkBoxClicked=["1"];
-        let array = wrapper.instance().handleDivSelected(value);
-        expect(array).toEqual(["1","2"]);
-    });
+        wrapper.instance().state.items =
+            [
+                {
+                    value: 0,
+                    title: 'OSCENO',
+                    desc: 'Offese, insulti, attacchi personali, ecc.',
+                    imageGrey: "../images/osceno/grey.svg",
+                    checked: false
+                },
+                {
+                    value: 1,
+                    title: 'MINACCIA',
+                    desc: 'Violenza, minacce, provocazioni, ecc.',
+                    imageGrey: "../images/minaccia/grey.svg",
+                    checked: false
+                },
+                {
+                    value: 2,
+                    title: 'INSULTO',
+                    desc: 'Parolacce, riferimenti al sesso, ecc.',
+                    imageGrey: "../images/insulto/grey.svg",
+                    checked: false
+                },
+                {
+                    value: 3,
+                    title: 'RAZZIALE',
+                    desc: 'Riferimenti ad etnie, luoghi comuni regionali, ecc.',
+                    imageGrey: "../images/razziale/grey.svg",
+                    checked: false
+                }
+            ]
+        wrapper.instance().onChange(1);
+        expect(wrapper.instance().state.items[1].checked).toEqual(true)
+        })
 
-    it("removes value when checkbox is unselected", () => {
+    xit("uncheck all selected divs",() =>{
         let wrapper = shallow(<AbuseArea/>);
-        const value = "2";
-        wrapper.instance().state.checkBoxClicked=["1","2"];
-        let array = wrapper.instance().handleDivUnselected(value);
-        expect(array).toEqual(["1"]);
-    });
+        wrapper.instance().state.items =
+            [
+                {
+                    value: 0,
+                    title: 'OSCENO',
+                    desc: 'Offese, insulti, attacchi personali, ecc.',
+                    imageGrey: "../images/osceno/grey.svg",
+                    checked: true
+                },
+                {
+                    value: 1,
+                    title: 'MINACCIA',
+                    desc: 'Violenza, minacce, provocazioni, ecc.',
+                    imageGrey: "../images/minaccia/grey.svg",
+                    checked: true
+                },
+                {
+                    value: 2,
+                    title: 'INSULTO',
+                    desc: 'Parolacce, riferimenti al sesso, ecc.',
+                    imageGrey: "../images/insulto/grey.svg",
+                    checked: true
+                },
+                {
+                    value: 3,
+                    title: 'RAZZIALE',
+                    desc: 'Riferimenti ad etnie, luoghi comuni regionali, ecc.',
+                    imageGrey: "../images/razziale/grey.svg",
+                    checked: true
+                }
+            ]
+        let items = wrapper.instance().sendCategories();
+        console.log(items);
 
-    xit("resets clicked checkboxes when user press button", () =>{
-        let wrapper = shallow(<AbuseArea/>);
-        wrapper.instance().state.checkboxes=["1","2","3","4"];
-        let spy1 = spyOn(wrapper.instance(), 'uncheckAllCheckBoxes');
-        let spy2 = spyOn(props, 'sendSentence');
-        let array = wrapper.instance().sendCategories();
-        expect(array).toEqual([]);
-        expect(spy1).toHaveBeenCalled();
-        expect(spy2).toHaveBeenCalled();
     })
-});
+})

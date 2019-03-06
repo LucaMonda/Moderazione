@@ -11,7 +11,7 @@ class CheckBoxArea extends Component {
         this.onChange = this.onChange.bind(this);
 
         this.state = {
-            checkboxes: [
+            items: [
                 {
                     value: 0,
                     title: 'OSCENO',
@@ -45,13 +45,13 @@ class CheckBoxArea extends Component {
     }
 
     onChange(value) {
-        let checkboxes = this.state.checkboxes;
+        let checkboxes = this.state.items;
         checkboxes.filter((checkbox) => checkbox.value === value).map((checkbox) => checkbox.checked = !checkbox.checked)
-        this.setState({checkboxes: checkboxes})
+        this.setState({items: checkboxes})
     }
 
     sendCategories() {
-        let checkboxes = this.state.checkboxes;
+        let checkboxes = this.state.items;
         let checkboxClicked = [];
 
         checkboxes.forEach((checkbox) => {
@@ -64,9 +64,9 @@ class CheckBoxArea extends Component {
 
         this.props.sendSentence(checkboxClicked);
 
-
         checkboxes.map((checkbox) => checkbox.checked = false)
-        this.setState({checkboxes: checkboxes})
+        this.setState({items: checkboxes})
+        return checkboxes;
     }
 
     render() {
@@ -74,7 +74,7 @@ class CheckBoxArea extends Component {
             <div className="container-checkbox-area">
                 <div className="checkboxes-container">
                     {
-                        this.state.checkboxes.map((checkbox) =>
+                        this.state.items.map((checkbox) =>
                             <AbuseItem
                                 key={checkbox.value}
                                 value={checkbox.value}

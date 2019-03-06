@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import CheckBoxAbuse from './CheckBoxAbuse.jsx';
-import '../styles/CheckBoxArea.css';
+import AbuseItem from './AbuseItem.jsx';
+import '../styles/AbuseArea.css';
 
 const imagegrey = require("../images/insulto/grey.svg");
 
@@ -78,8 +78,8 @@ class CheckBoxArea extends Component {
                 <div className="checkboxes-container">
                 {
                     this.state.checkboxes.map((checkbox, idx) =>
-                        <CheckBoxAbuse key={idx} icon={checkbox.icon} title={checkbox.title} id ={"checkbox"+idx} desc={checkbox.desc} value={idx}
-                                       handleDivSelected={this.handleDivSelected} handleDivUnselected={this.handleDivUnselected}/>
+                        <AbuseItem key={idx} icon={checkbox.icon} title={checkbox.title} id ={"checkbox"+idx} desc={checkbox.desc} value={idx}
+                                   handleDivSelected={this.handleDivSelected} handleDivUnselected={this.handleDivUnselected}/>
                     )
                 }
                 </div>

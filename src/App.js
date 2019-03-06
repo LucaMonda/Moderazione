@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CheckBoxArea from "./components/CheckBoxArea.jsx"
+import CheckBoxArea from "./components/AbuseArea.jsx"
 import './App.css';
 
 class App extends Component {
@@ -9,6 +9,7 @@ class App extends Component {
         this.getSentence = this.getSentence.bind(this);
         this.sendSentence = this.sendSentence.bind(this);
     }
+
     componentDidMount() {
         this.setState( {
             sentenceId: null,
@@ -17,7 +18,6 @@ class App extends Component {
     }
 
     getSentence(){
-
         //Cambiare URL per la get request
         fetch(`./sentence.json`,{
             headers : {
@@ -38,7 +38,7 @@ class App extends Component {
         const obj = {
             id: this.state.sentenceId,
             categories:array
-        }
+        };
         console.log(obj);
 
         //POST REQUEST
@@ -54,16 +54,20 @@ class App extends Component {
         */
 
         this.getSentence();
+        return obj;
     }
 
     render() {
         return (
           <div className="container">
               <div className="container-user-context">
-                  <p className="username-name">@Username</p>
+                  <div className="user">@Username</div>
+                  <div className="show-context">Mostrami il contesto</div>
               </div>
-              <p id="text" className="sentence-text">Se parli così è perchè non capisci un cazzo come tutti i napoletani!</p>
-                  <CheckBoxArea sendSentence={this.sendSentence}/>
+              <div className="container-sentence">
+                  <div id="text" className="sentence">Se parli così è perchè non capisci un cazzo come tutti i napoletani!</div>
+              </div>
+              <CheckBoxArea sendSentence={this.sendSentence}/>
           </div>
         );
   }

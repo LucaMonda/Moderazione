@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import '../styles/CheckBoxAbuse.css';
+import '../styles/AbuseItem.css';
 
 const imagegrey = require("../images/insulto/grey.svg");
 const imageblue = require("../images/insulto/blue.svg");
 
-class CheckBoxAbuse extends Component {
+class AbuseItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,7 +19,8 @@ class CheckBoxAbuse extends Component {
 
 
     handleClickDiv(){
-        if(document.getElementById(this.props.id).src === "http://localhost:3000"+imagegrey){
+        const href = window.location.href.replace(/.$/, "");
+        if(document.getElementById(this.props.id).src === href+imagegrey){
             document.getElementById(this.props.id).src=imageblue;
             this.props.handleDivSelected(this.state.index);
         }else{
@@ -45,4 +46,4 @@ class CheckBoxAbuse extends Component {
     }
 }
 
-export default CheckBoxAbuse;
+export default AbuseItem;

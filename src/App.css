@@ -1,22 +1,37 @@
 .container{
-  margin-top:160px;
-  text-align: center;
+  margin-top:100px;
   margin-left:300px;
   margin-right:300px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
-.username-name{
+.container-user-context{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+}
+
+.user{
   line-height: 1.5;
-  text-align:left;
+  font-weight:500;
   font-size:17px;
-  font-weight:bold;
 }
 
-.sentence-text{
+.show-context{
   line-height: 1.5;
-  text-align:left;
-  margin-top:30px;
+  font-size:17px;
+  font-weight:500;
+  color:#242EE5;
+}
+
+.sentence{
+  line-height: 1.5;
+  font-weight:500;
   font-size:43px;
-  font-weight:bold;
-  margin-bottom :50px;
+}
+
+.container-sentence{
+  margin-top:30px;
 }

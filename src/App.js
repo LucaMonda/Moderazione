@@ -65,7 +65,7 @@ class App extends Component {
                   <div className="show-context">Mostrami il contesto</div>
               </div>
               <div className="container-sentence">
-                  <div id="text" className="sentence">Se parli così è perchè non capisci un cazzo come tutti i napoletani!</div>
+                  <div id="text" className="sentence"></div>
               </div>
               <CheckBoxArea sendSentence={this.sendSentence}/>
           </div>

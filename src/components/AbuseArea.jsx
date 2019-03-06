@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import AbuseItem from './AbuseItem.jsx';
 import '../styles/AbuseArea.css';
 
-const imagegrey = require("../images/insulto/grey.svg");
 
 class CheckBoxArea extends Component {
 
@@ -11,49 +10,51 @@ class CheckBoxArea extends Component {
         this.handleDivSelected = this.handleDivSelected.bind(this);
         this.handleDivUnselected = this.handleDivUnselected.bind(this);
         this.sendCategories = this.sendCategories.bind(this);
-        this.uncheckAllDiv = this.uncheckAllDiv.bind(this);
+        //this.uncheckAllDiv = this.uncheckAllDiv.bind(this);
 
         this.state = {
             checkboxes: [
                 {
-                    title: 'INSULTO',
-                    desc: 'Parolacce, riferimenti al sesso, ecc.',
-                    icon: "../images/insulto/grey.svg"
+                    title: 'OSCENO',
+                    desc: 'Offese, insulti, attacchi personali, ecc.',
+                    imageGrey :  "../images/osceno/grey.svg"
                 },
                 {
                     title: 'MINACCIA',
                     desc: 'Violenza, minacce, provocazioni, ecc.',
-                    icon: "../images/minaccia/grey.svg"
+                    imageGrey :  "../images/minaccia/grey.svg"
                 },
                 {
-                    title: 'OSCENO',
-                    desc: 'Offese, insulti, attacchi personali, ecc.',
-                    icon: "../images/osceno/grey.svg"
+                    title: 'INSULTO',
+                    desc: 'Parolacce, riferimenti al sesso, ecc.',
+                    imageGrey :  "../images/insulto/grey.svg"
                 },
                 {
-                    title: 'ODIO RAZIALE',
+                    title: 'RAZZIALE',
                     desc: 'Riferimenti ad etnie, luoghi comuni regionali, ecc.',
-                    icon: "../images/razziale/grey.svg"
-
+                    imageGrey :  "../images/razziale/grey.svg"
                 }
             ],
             checkBoxClicked: [],
-
         }
+
+
     }
 
     sendCategories() {
-        this.uncheckAllDiv();
+        //this.uncheckAllDiv();
         this.props.sendSentence(this.state.checkBoxClicked);
         this.setState({checkBoxClicked: []});
         return this.state.checkBoxClicked;
     }
 
+    /*
     uncheckAllDiv(){
         for (let i =0;i< this.state.checkboxes.length;i++){
-            document.getElementById("checkbox"+i).src = imagegrey;
+            document.getElementById("checkbox"+i).src = require(this.state.checkboxes[i].imageGrey);
         }
     }
+    */
 
     handleDivSelected(value){
         this.setState(prevState => ({
@@ -78,8 +79,15 @@ class CheckBoxArea extends Component {
                 <div className="checkboxes-container">
                 {
                     this.state.checkboxes.map((checkbox, idx) =>
-                        <AbuseItem key={idx} icon={checkbox.icon} title={checkbox.title} id ={"checkbox"+idx} desc={checkbox.desc} value={idx}
-                                   handleDivSelected={this.handleDivSelected} handleDivUnselected={this.handleDivUnselected}/>
+                        <AbuseItem
+                            key={idx}
+                            title={checkbox.title}
+                            id ={"checkbox"+idx}
+                            desc={checkbox.desc}
+                            value={idx}
+                            handleDivSelected={this.handleDivSelected}
+                            handleDivUnselected={this.handleDivUnselected}
+                        />
                     )
                 }
                 </div>

@@ -5,8 +5,9 @@ import AbuseArea from "./AbuseArea";
 
 describe("AbuseArea", () => {
     let props = {
-        sendSentence: (value) => jest.fn()
-    }
+        sendSentence:  () => {
+         jest.fn()}
+    };
     const enzyme = require("enzyme");
     const Adapter = require("enzyme-adapter-react-16");
     enzyme.configure({ adapter: new Adapter() });
@@ -43,13 +44,13 @@ describe("AbuseArea", () => {
                     imageGrey: "../images/razziale/grey.svg",
                     checked: false
                 }
-            ]
+            ];
         wrapper.instance().onChange(1);
         expect(wrapper.instance().state.items[1].checked).toEqual(true)
-        })
+        });
 
-    xit("uncheck all selected divs",() =>{
-        let wrapper = shallow(<AbuseArea/>);
+    it("uncheck all selected divs",() =>{
+        let wrapper = shallow(<AbuseArea {...props}/>);
         wrapper.instance().state.items =
             [
                 {
@@ -80,9 +81,8 @@ describe("AbuseArea", () => {
                     imageGrey: "../images/razziale/grey.svg",
                     checked: true
                 }
-            ]
+            ];
         let items = wrapper.instance().sendCategories();
-        console.log(items);
-
+        items.map((item) => expect(item.checked).toEqual(false));
     })
-})
+});

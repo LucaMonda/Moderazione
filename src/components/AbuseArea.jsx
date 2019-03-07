@@ -8,6 +8,7 @@ class CheckBoxArea extends Component {
     constructor(props) {
         super(props);
         this.sendCategories = this.sendCategories.bind(this);
+        this.handleButtonBehavior = this.handleButtonBehavior.bind(this);
         this.onChange = this.onChange.bind(this);
 
         this.state = {
@@ -69,6 +70,10 @@ class CheckBoxArea extends Component {
         return checkboxes;
     }
 
+    handleButtonBehavior(){
+        return this.props.disableButton? "grey" : "#242EE5";
+    }
+
     render() {
         return (
             <div className="container-checkbox-area">
@@ -86,7 +91,8 @@ class CheckBoxArea extends Component {
                     }
                 </div>
                 <div className="button-container">
-                    <button className="send-info-button"
+                    <button className="send-info-button" disabled ={this.props.disableButton}
+                            style={{backgroundColor: this.handleButtonBehavior()}}
                             onClick={this.sendCategories}>AVANTI
                     </button>
                 </div>

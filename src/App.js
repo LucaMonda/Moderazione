@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CheckBoxArea from "./components/AbuseArea.jsx"
-import './App.css';
+import './styles/App.css';
 
 class App extends Component {
 
@@ -9,7 +9,8 @@ class App extends Component {
         this.state = {
             sentenceId: null,
             author: "",
-            content: ""
+            content: "",
+            disableButton: false
         };
         this.getSentence = this.getSentence.bind(this);
         this.sendSentence = this.sendSentence.bind(this);
@@ -20,7 +21,6 @@ class App extends Component {
     }
 
     getSentence(){
-        //Cambiare URL per la get request
         fetch('http://localhost:3100/sentence',{
             mode: 'cors',
             headers : {
@@ -30,11 +30,19 @@ class App extends Component {
         })
         .then(res => res.json())
         .then(data => {
-            this.setState({
-                sentenceId: data.id,
-                author: data.author,
-                content: data.content
-            });
+            data = []
+            if (data.length !== 0) {
+                this.setState({
+                    sentenceId: data.id,
+                    author: data.author,
+                    content: data.content
+                });
+            }else{
+                this.setState({
+                    content:"ATTENZIONE! Non ci sono più frasi da moderare.",
+                    disableButton:true
+                })
+            }
         })
     }
 
@@ -67,7 +75,7 @@ class App extends Component {
               <div className="container-sentence">
                   <div id="text" className="sentence">{this.state.content}</div>
               </div>
-              <CheckBoxArea sendSentence={this.sendSentence}/>
+              <CheckBoxArea sendSentence={this.sendSentence} disableButton = {this.state.disableButton}/>
           </div>
         );
   }

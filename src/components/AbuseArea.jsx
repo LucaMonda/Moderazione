@@ -46,9 +46,11 @@ class CheckBoxArea extends Component {
     }
 
     onChange(value) {
-        let checkboxes = this.state.items;
-        checkboxes.filter((checkbox) => checkbox.value === value).map((checkbox) => checkbox.checked = !checkbox.checked);
-        this.setState({items: checkboxes})
+        if(this.props.disable === false) {
+            let checkboxes = this.state.items;
+            checkboxes.filter((checkbox) => checkbox.value === value).map((checkbox) => checkbox.checked = !checkbox.checked);
+            this.setState({items: checkboxes})
+        }
     }
 
     sendCategories() {
@@ -71,7 +73,7 @@ class CheckBoxArea extends Component {
     }
 
     handleButtonBehavior(){
-        return this.props.disableButton? "grey" : "#242EE5";
+        return this.props.disable? "grey" : "#242EE5";
     }
 
     render() {
@@ -91,7 +93,7 @@ class CheckBoxArea extends Component {
                     }
                 </div>
                 <div className="button-container">
-                    <button className="send-info-button" disabled ={this.props.disableButton}
+                    <button className="send-info-button" disabled ={this.props.disable}
                             style={{backgroundColor: this.handleButtonBehavior()}}
                             onClick={this.sendCategories}>AVANTI
                     </button>

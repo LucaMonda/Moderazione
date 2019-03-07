@@ -10,7 +10,7 @@ class App extends Component {
             sentenceId: null,
             author: "",
             content: "",
-            disableButton: false
+            disable: false
         };
         this.getSentence = this.getSentence.bind(this);
         this.sendSentence = this.sendSentence.bind(this);
@@ -30,7 +30,6 @@ class App extends Component {
         })
         .then(res => res.json())
         .then(data => {
-            data = []
             if (data.length !== 0) {
                 this.setState({
                     sentenceId: data.id,
@@ -40,7 +39,7 @@ class App extends Component {
             }else{
                 this.setState({
                     content:"ATTENZIONE! Non ci sono più frasi da moderare.",
-                    disableButton:true
+                    disable:true
                 })
             }
         })
@@ -59,7 +58,13 @@ class App extends Component {
                 'Accept': 'application/json'
             },
             body: JSON.stringify(obj)
-        }).then(response => response.json());
+        })
+            .then(response => response.json())
+            .then(data => {
+                if(data.result !== "OK"){
+                    console.log("Problem with the server.");
+                }
+            });
 
         this.getSentence();
         return obj;
@@ -75,7 +80,7 @@ class App extends Component {
               <div className="container-sentence">
                   <div id="text" className="sentence">{this.state.content}</div>
               </div>
-              <CheckBoxArea sendSentence={this.sendSentence} disableButton = {this.state.disableButton}/>
+              <CheckBoxArea sendSentence={this.sendSentence} disable = {this.state.disable}/>
           </div>
         );
   }

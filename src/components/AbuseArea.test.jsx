@@ -5,7 +5,7 @@ import AbuseArea from "./AbuseArea";
 
 describe("AbuseArea", () => {
     let props = {
-        disableButton:null,
+        disable:null,
         sendSentence:  () => {
          jest.fn()}
     };
@@ -89,10 +89,10 @@ describe("AbuseArea", () => {
 
     it("changes color based on number of sentences to be moderated",() =>{
         let wrapper = shallow(<AbuseArea {...props}/>);
-        wrapper.setProps({ disableButton: false });
+        wrapper.setProps({ disable: false });
         let color = wrapper.instance().handleButtonBehavior();
         expect(color).toEqual("#242EE5");
-        wrapper.setProps({ disableButton: true });
+        wrapper.setProps({ disable: true });
         color = wrapper.instance().handleButtonBehavior();
         expect(color).toEqual("grey");
     })

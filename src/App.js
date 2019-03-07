@@ -41,9 +41,9 @@ class App extends Component {
     sendSentence(array){
         const obj = {
             id: this.state.sentenceId,
+            moderator: "stringa-fissa@da-cambiare.it",
             categories:array
         };
-
         fetch('http://localhost:3100/sentence',{
             method: "POST",
             headers: {

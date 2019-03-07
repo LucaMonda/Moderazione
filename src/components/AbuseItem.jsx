@@ -4,7 +4,6 @@ import '../styles/AbuseItem.css';
 class AbuseItem extends Component {
     constructor(props) {
         super(props);
-
         this.uncheckedImage = require("../images/"+this.props.title.toLowerCase()+"/grey.svg");
         this.checkedImage = require("../images/"+this.props.title.toLowerCase()+"/blue.svg");
     }

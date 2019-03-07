@@ -46,7 +46,7 @@ class CheckBoxArea extends Component {
 
     onChange(value) {
         let checkboxes = this.state.items;
-        checkboxes.filter((checkbox) => checkbox.value === value).map((checkbox) => checkbox.checked = !checkbox.checked)
+        checkboxes.filter((checkbox) => checkbox.value === value).map((checkbox) => checkbox.checked = !checkbox.checked);
         this.setState({items: checkboxes})
     }
 
@@ -64,8 +64,8 @@ class CheckBoxArea extends Component {
 
         this.props.sendSentence(checkboxClicked);
 
-        checkboxes.map((checkbox) => checkbox.checked = false)
-        this.setState({items: checkboxes})
+        checkboxes.map((checkbox) => checkbox.checked = false);
+        this.setState({items: checkboxes});
         return checkboxes;
     }
 

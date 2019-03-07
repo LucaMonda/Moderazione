@@ -47,7 +47,6 @@ class CheckBoxArea extends Component {
     }
 
     onChange(value) {
-        console.log(value);
         if(this.props.disable === false) {
             let checkboxes = this.state.items;
             checkboxes.filter((checkbox) => checkbox.value === value).map((checkbox) => checkbox.checked = !checkbox.checked);

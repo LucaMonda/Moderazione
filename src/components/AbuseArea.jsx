@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import AbuseItem from './AbuseItem.jsx';
 import '../styles/AbuseArea.css';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 
 class CheckBoxArea extends Component {
@@ -46,6 +47,7 @@ class CheckBoxArea extends Component {
     }
 
     onChange(value) {
+        console.log(value);
         if(this.props.disable === false) {
             let checkboxes = this.state.items;
             checkboxes.filter((checkbox) => checkbox.value === value).map((checkbox) => checkbox.checked = !checkbox.checked);
@@ -92,6 +94,15 @@ class CheckBoxArea extends Component {
                         )
                     }
                 </div>
+                <KeyboardEventHandler
+                    handleKeys={['1', '2', '3', '4', "enter"]}
+                    onKeyEvent={(key) => {
+                        if(key==="enter") {
+                            this.sendCategories();
+                        }else{
+                            this.onChange(key - 1)
+                        }
+                    }} />
                 <div className="button-container">
                     <button className="send-info-button" disabled ={this.props.disable}
                             style={{backgroundColor: this.handleButtonBehavior()}}

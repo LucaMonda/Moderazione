@@ -46,6 +46,7 @@ describe("AbuseArea", () => {
                     checked: false
                 }
             ];
+        wrapper.setProps({ disable: false });
         wrapper.instance().onChange(1);
         expect(wrapper.instance().state.items[1].checked).toEqual(true)
         });

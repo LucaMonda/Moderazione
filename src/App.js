@@ -6,14 +6,16 @@ class App extends Component {
 
     constructor(props){
         super(props);
+        this.state = {
+            sentenceId: null,
+            author: "",
+            content: ""
+        };
         this.getSentence = this.getSentence.bind(this);
         this.sendSentence = this.sendSentence.bind(this);
     }
 
     componentDidMount() {
-        this.setState( {
-            sentenceId: null,
-        });
         this.getSentence();
     }
 
@@ -23,18 +25,16 @@ class App extends Component {
             mode: 'cors',
             headers : {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST',
-                'Access-Control-Allow-Headers': 'X-Requested-With'
+                'Accept': 'application/json'
             }
         })
         .then(res => res.json())
         .then(data => {
             this.setState({
-                sentenceId: data.id
+                sentenceId: data.id,
+                author: data.author,
+                content: data.content
             });
-            document.getElementById("text").innerHTML = data.content;
         })
     }
 
@@ -43,7 +43,6 @@ class App extends Component {
             id: this.state.sentenceId,
             categories:array
         };
-        console.log(obj);
 
         fetch('http://localhost:3100/sentence',{
             method: "POST",
@@ -62,11 +61,11 @@ class App extends Component {
         return (
           <div className="container">
               <div className="container-user-context">
-                  <div className="user">@Username</div>
+                  <div className="user">{this.state.author}</div>
                   <div className="show-context">Mostrami il contesto</div>
               </div>
               <div className="container-sentence">
-                  <div id="text" className="sentence"/>
+                  <div id="text" className="sentence">{this.state.content}</div>
               </div>
               <CheckBoxArea sendSentence={this.sendSentence}/>
           </div>

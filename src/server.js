@@ -20,8 +20,7 @@ app.get("/sentence", (req, res, next) => {
 });
 
 app.post("/sentence", (req, res, next) => {
-    console.log(req);
-
+    console.log("sentence received");
     res.json(
         {
             "result":"OK"

@@ -1,0 +1,27 @@
+{
+    sentences: [
+        {
+            id: 1,
+            text: 'Se parli così è perchè non capisci un cazzo come tutti i ginecologi',
+            author: 'rado',
+            votes: [
+                {
+                    moderator: 'rado@flowing.it',
+                    labels: [1,3]
+                }
+            ]
+        },
+        {
+            id: 2,
+            text: 'dfgsdfxghdfxg',
+            author: '',
+            votes: []
+        },
+        {
+            id: 3,
+            text: 'dfgsdfxghdfxg',
+            author: '',
+            votes: []
+        }
+    ]
+}

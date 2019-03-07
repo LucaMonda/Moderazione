@@ -19,10 +19,14 @@ class App extends Component {
 
     getSentence(){
         //Cambiare URL per la get request
-        fetch(`./sentence.json`,{
+        fetch('http://localhost:3100/sentence',{
+            mode: 'cors',
             headers : {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST',
+                'Access-Control-Allow-Headers': 'X-Requested-With'
             }
         })
         .then(res => res.json())
@@ -41,9 +45,7 @@ class App extends Component {
         };
         console.log(obj);
 
-        //POST REQUEST
-        /*
-        fetch("",{
+        fetch('http://localhost:3100/sentence',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -51,7 +53,6 @@ class App extends Component {
             },
             body: JSON.stringify(obj)
         }).then(response => response.json());
-        */
 
         this.getSentence();
         return obj;

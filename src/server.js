@@ -16,17 +16,12 @@ app.listen(3100, () => {
     console.log("Server running on port 3100");
 });
 
-app.get("/sentence", (req, res, next) => {
-    res.json(
-        {
-            "id":"1",
-            "content":"Se parli così è perchè non capisci un cazzo come tutti i ginecologi!",
-            "author":"rado"
-        }
-    );
+app.get("/sentence", (req, res) => {
+    let response = getNextSentence();
+    res.json(response);
 });
 
-app.post("/sentence", (req, res, next) => {
+app.post("/sentence", (req, res) => {
     let id = req.body.id;
     let moderator = req.body.moderator;
     let categories = req.body.categories;
@@ -38,37 +33,46 @@ app.post("/sentence", (req, res, next) => {
     saveInfo(id, moderator,categories);
 });
 
-
 function saveInfo(id, moderator,categories){
-    let write = true;
     let obj = {
         moderator: moderator,
         categories: categories
-    }
-    console.log(obj);
-    var data = JSON.parse(fs.readFileSync("public/sentences.json").toString());
+    };
+    const data = JSON.parse(fs.readFileSync("public/sentences.json").toString());
+    console.log(data.sentences);
     data.sentences.forEach(function (sentence){
         if(sentence.id === id)
         {
-           sentence.votes.forEach(function(phrase){
-               if(phrase.moderator === moderator){
-                   write=false;
-               }
-           })
-            if(write===true) {
-                sentence.votes.push(obj);
-            }
-           return;
+            sentence.votes.push(obj);
         }
     });
-    fs.writeFile("public/sentences.json", JSON.stringify(data), function(err, result) {
+    fs.writeFile("public/sentences.json", JSON.stringify(data), function(err) {
         if(err) console.log('error', err);
     });
 }
 
-function readJsonFileSync(filepath, encoding){
-    let file = fs.readFileSync(filepath, encoding);
-    return JSON.parse(file);
+
+function getNextSentence(){
+    let stringa = "stringa-fissa@da-cambiare.it";
+    let response = "";
+    let found = false;
+    let i = 1;
+
+    const data = JSON.parse(fs.readFileSync("public/sentences.json").toString());
+    data.sentences.forEach(function(sentence){
+        if(sentence.id == i){
+            sentence.votes.forEach(function (phrase) {
+                if (phrase.moderator === stringa) {
+                    found = true;
+                }
+            })
+            if (found === false) {
+                response = sentence;
+                return;
+            }
+        }
+        found = false;
+        i++;
+    });
+    return response;
 }
-
-

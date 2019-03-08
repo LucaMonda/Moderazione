@@ -14,9 +14,13 @@ class App extends Component {
         };
         this.getSentence = this.getSentence.bind(this);
         this.sendSentence = this.sendSentence.bind(this);
+        this.getCookiebyName = this.getCookiebyName.bind(this);
+
     }
 
     componentDidMount() {
+        document.cookie = "email=stringa-fissa@da-cambiare.it";
+        localStorage.clear();
         this.getSentence();
     }
 
@@ -48,9 +52,10 @@ class App extends Component {
     sendSentence(array){
         const obj = {
             id: this.state.sentenceId,
-            moderator: "stringa-fissa@da-cambiare.it",
+            moderator: this.getCookiebyName("email"),
             categories:array
         };
+
         fetch('http://localhost:3100/sentence',{
             method: "POST",
             headers: {
@@ -65,10 +70,14 @@ class App extends Component {
                     console.log("Problem with the server.");
                 }
             });
-
-        this.getSentence();
         return obj;
     }
+
+
+    getCookiebyName(name){
+        let pair = document.cookie.match(new RegExp(name + '=([^;]+)'));
+        return !!pair ? pair[1] : null;
+    };
 
     render() {
         return (

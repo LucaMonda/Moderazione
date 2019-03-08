@@ -54,17 +54,17 @@ function getNextSentence(){
 
     const data = JSON.parse(fs.readFileSync("public/sentences.json").toString());
     do {
+        found = false;
         if(i-1===data.sentences.length){
             response = [];
             break;
         }
-        found = false;
-        let sentence = data.sentences.filter((sentence) => sentence.id == i);
-        sentence[0].votes.filter((vote) => vote.moderator === stringa).map(function(){
+        let sentence = data.sentences.find((sentence) => sentence.id == i);
+        sentence.votes.filter((vote) => vote.moderator === stringa).map(function(){
             found=true;
         });
         i++;
-        response = sentence[0];
+        response = sentence;
     }while(found==true)
     return response;
 }

@@ -18,6 +18,7 @@ app.listen(3100, () => {
 
 app.get("/sentence", (req, res) => {
     let response = getNextSentence();
+    console.log(response);
     res.json(response);
 });
 
@@ -39,13 +40,7 @@ function saveInfo(id, moderator,categories){
         categories: categories
     };
     const data = JSON.parse(fs.readFileSync("public/sentences.json").toString());
-    console.log(data.sentences);
-    data.sentences.forEach(function (sentence){
-        if(sentence.id === id)
-        {
-            sentence.votes.push(obj);
-        }
-    });
+    data.sentences.filter((sentence) => sentence.id === id).map((sentence) => sentence.votes.push(obj));
     fs.writeFile("public/sentences.json", JSON.stringify(data), function(err) {
         if(err) console.log('error', err);
     });
@@ -54,25 +49,23 @@ function saveInfo(id, moderator,categories){
 
 function getNextSentence(){
     let stringa = "stringa-fissa@da-cambiare.it";
-    let response = "";
-    let found = false;
+    let response = [];
+    let found = "";
     let i = 1;
 
     const data = JSON.parse(fs.readFileSync("public/sentences.json").toString());
-    data.sentences.forEach(function(sentence){
-        if(sentence.id == i){
-            sentence.votes.forEach(function (phrase) {
-                if (phrase.moderator === stringa) {
-                    found = true;
-                }
-            })
-            if (found === false) {
-                response = sentence;
-                return;
-            }
+    do {
+        if(i-1===data.sentences.length){
+            response = [];
+            break;
         }
         found = false;
+        let sentence = data.sentences.filter((sentence) => sentence.id == i);
+        sentence[0].votes.filter((vote) => vote.moderator === stringa).map(function(){
+            found=true;
+        });
         i++;
-    });
+        response = sentence[0];
+    }while(found==true)
     return response;
 }

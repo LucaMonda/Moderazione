@@ -19,8 +19,6 @@ class App extends Component {
     }
 
     componentDidMount() {
-        document.cookie = "email=stringa-fissa@da-cambiare.it";
-        localStorage.clear();
         this.getSentence();
     }
 
@@ -52,7 +50,7 @@ class App extends Component {
     sendSentence(array){
         const obj = {
             id: this.state.sentenceId,
-            moderator: this.getCookiebyName("email"),
+            moderator: "stringa-fissa@da-cambiare.it",
             categories:array
         };
 

@@ -18,7 +18,6 @@ app.listen(3100, () => {
 
 app.get("/sentence", (req, res) => {
     let response = getNextSentence();
-    console.log(response);
     res.json(response);
 });
 

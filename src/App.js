@@ -14,8 +14,6 @@ class App extends Component {
         };
         this.getSentence = this.getSentence.bind(this);
         this.sendSentence = this.sendSentence.bind(this);
-        this.getCookiebyName = this.getCookiebyName.bind(this);
-
     }
 
     componentDidMount() {
@@ -70,12 +68,6 @@ class App extends Component {
             });
         return obj;
     }
-
-
-    getCookiebyName(name){
-        let pair = document.cookie.match(new RegExp(name + '=([^;]+)'));
-        return !!pair ? pair[1] : null;
-    };
 
     render() {
         return (

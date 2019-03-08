@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CheckBoxArea from "./components/AbuseArea.jsx"
+import AbuseArea from "./components/AbuseArea.jsx"
 import './styles/App.css';
 
 class App extends Component {
@@ -79,7 +79,7 @@ class App extends Component {
               <div className="container-sentence">
                   <div id="text" className="sentence">{this.state.content}</div>
               </div>
-              <CheckBoxArea sendSentence={this.sendSentence} disable = {this.state.disable}/>
+              <AbuseArea sendSentence={this.sendSentence} disable = {this.state.disable}/>
           </div>
         );
   }

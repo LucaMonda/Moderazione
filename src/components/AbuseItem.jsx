@@ -15,8 +15,8 @@ class AbuseItem extends Component {
 
     render() {
         return(
-            <div className="checkbox-abuse-div" onClick={() => this.props.onChange(this.props.value)}>
-                <div className="checkbox-div">
+            <div className="abuse-div" onClick={() => this.props.onChange(this.props.value)}>
+                <div className="abuse-div-img">
                     <img src={this.getImageByCheckedValue(this.props.checked)} alt=""/>
                 </div>
                 <div className="label-title-div">

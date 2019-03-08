@@ -4,7 +4,7 @@ import '../styles/AbuseArea.css';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 
-class CheckBoxArea extends Component {
+class AbuseArea extends Component {
 
     constructor(props) {
         super(props);
@@ -48,29 +48,29 @@ class CheckBoxArea extends Component {
 
     onChange(value) {
         if(this.props.disable === false) {
-            let checkboxes = this.state.items;
-            checkboxes.filter((checkbox) => checkbox.value === value).map((checkbox) => checkbox.checked = !checkbox.checked);
-            this.setState({items: checkboxes})
+            let array = this.state.items;
+            array.filter((item) => item.value === value).map((item) => item.checked = !item.checked);
+            this.setState({items: array})
         }
     }
 
     sendCategories() {
-        let checkboxes = this.state.items;
-        let checkboxClicked = [];
+        let array = this.state.items;
+        let arrayClicked = [];
 
-        checkboxes.forEach((checkbox) => {
-            if (!checkbox.checked) {
+        array.forEach((item) => {
+            if (!item.checked) {
                 return
             }
 
-            checkboxClicked.push(checkbox.value)
+            arrayClicked.push(item.value)
         });
 
-        this.props.sendSentence(checkboxClicked);
+        this.props.sendSentence(arrayClicked);
 
-        checkboxes.map((checkbox) => checkbox.checked = false);
-        this.setState({items: checkboxes});
-        return checkboxes;
+        array.map((item) => item.checked = false);
+        this.setState({items: array});
+        return array;
     }
 
     handleButtonBehavior(){
@@ -79,16 +79,16 @@ class CheckBoxArea extends Component {
 
     render() {
         return (
-            <div className="container-checkbox-area">
-                <div className="checkboxes-container">
+            <div className="container-area">
+                <div className="container-item">
                     {
-                        this.state.items.map((checkbox) =>
+                        this.state.items.map((item) =>
                             <AbuseItem
-                                key={checkbox.value}
-                                value={checkbox.value}
-                                title={checkbox.title}
-                                desc={checkbox.desc}
-                                checked={checkbox.checked}
+                                key={item.value}
+                                value={item.value}
+                                title={item.title}
+                                desc={item.desc}
+                                checked={item.checked}
                                 onChange={this.onChange}/>
                         )
                     }
@@ -114,4 +114,4 @@ class CheckBoxArea extends Component {
     }
 }
 
-export default CheckBoxArea;
+export default AbuseArea;

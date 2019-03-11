@@ -59,13 +59,10 @@ class AbuseArea extends Component {
         let arrayClicked = [];
 
         array.forEach((item) => {
-            if (!item.checked) {
-                return
+            if (item.checked){
+                arrayClicked.push(item.value)
             }
-
-            arrayClicked.push(item.value)
         });
-
         this.props.sendSentence(arrayClicked);
 
         array.map((item) => item.checked = false);

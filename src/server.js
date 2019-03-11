@@ -64,6 +64,5 @@ function getNextSentence(){
         response = data.sentences.find((sentence) => sentence.id == i);
         i++;
     }while(write==false)
-    console.log(response);
     return write == true? response : [];
 }

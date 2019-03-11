@@ -56,15 +56,14 @@ class AbuseArea extends Component {
 
     sendCategories() {
         let array = this.state.items;
-        let arrayClicked = [];
 
+        let arrayClicked = [];
         array.forEach((item) => {
             if (item.checked){
                 arrayClicked.push(item.value)
             }
         });
         this.props.sendSentence(arrayClicked);
-
         array.map((item) => item.checked = false);
         this.setState({items: array});
         return array;

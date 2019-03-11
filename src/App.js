@@ -66,7 +66,8 @@ class App extends Component {
                     console.log("Problem with the server.");
                 }
             });
-        return obj;
+
+
     }
 
     render() {

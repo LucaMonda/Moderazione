@@ -48,23 +48,22 @@ function saveInfo(id, moderator,categories){
 
 function getNextSentence(){
     let stringa = "stringa-fissa@da-cambiare.it";
-    let response = [];
-    let found = "";
+    let response = "";
+    let write = "";
     let i = 1;
 
     const data = JSON.parse(fs.readFileSync("public/sentences.json").toString());
     do {
-        found = false;
         if(i-1===data.sentences.length){
-            response = [];
             break;
         }
-        let sentence = data.sentences.find((sentence) => sentence.id == i);
-        sentence.votes.filter((vote) => vote.moderator === stringa).map(function(){
-            found=true;
+        write = true;
+        data.sentences.find((sentence) => sentence.id == i).votes.filter((vote) => vote.moderator === stringa).map(function(){
+            write=false;
         });
+        response = data.sentences.find((sentence) => sentence.id == i);
         i++;
-        response = sentence;
-    }while(found==true)
-    return response;
+    }while(write==false)
+    console.log(response);
+    return write == true? response : [];
 }

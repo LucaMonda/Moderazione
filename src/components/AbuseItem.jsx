@@ -20,7 +20,7 @@ class AbuseItem extends Component {
                     <img src={this.getImageByCheckedValue(this.props.checked)} alt=""/>
                 </div>
                 <div className="label-title-div">
-                    <div className="title-label">{this.props.title} </div>
+                    <div className="title-label">{this.props.title}</div>
                 </div>
                 <div className={"label-description-div"}>
                     <div className="content-label">{this.props.desc}</div>

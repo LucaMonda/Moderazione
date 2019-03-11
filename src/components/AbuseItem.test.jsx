@@ -5,7 +5,8 @@ import AbuseItem from "./AbuseItem";
 
 describe("AbuseItem", () => {
     let props = {
-        title: "insulto"
+        title: "insulto",
+        desc: "descrizione"
     };
     const enzyme = require("enzyme");
     const Adapter = require("enzyme-adapter-react-16");
@@ -18,4 +19,11 @@ describe("AbuseItem", () => {
         image = wrapper.instance().getImageByCheckedValue(true);
         expect(image.default).toEqual("blue.svg")
     });
+
+    it("assigns correct value to component", () => {
+        let wrapper = shallow(<AbuseItem {...props}/>);
+        expect(wrapper.find(".title-label").text()).toEqual(props.title);
+        expect(wrapper.find(".content-label").text()).toEqual(props.desc);
+
+    })
 });

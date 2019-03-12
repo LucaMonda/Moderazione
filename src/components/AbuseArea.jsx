@@ -9,7 +9,6 @@ class AbuseArea extends Component {
     constructor(props) {
         super(props);
         this.sendCategories = this.sendCategories.bind(this);
-        this.handleButtonBehavior = this.handleButtonBehavior.bind(this);
         this.onChange = this.onChange.bind(this);
 
         this.state = {
@@ -69,10 +68,6 @@ class AbuseArea extends Component {
         return array;
     }
 
-    handleButtonBehavior(){
-        return this.props.disable? "grey" : "#242EE5";
-    }
-
     render() {
         return (
             <div className="container-area">
@@ -100,7 +95,7 @@ class AbuseArea extends Component {
                     }} />
                 <div className="button-container">
                     <button className="send-info-button" disabled ={this.props.disable}
-                            style={{backgroundColor: this.handleButtonBehavior()}}
+                            style={{backgroundColor: this.props.disable? "grey" : "#242EE5"}}
                             onClick={this.sendCategories}>AVANTI
                     </button>
                 </div>

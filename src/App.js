@@ -10,7 +10,10 @@ class App extends Component {
             sentenceId: null,
             author: "",
             content: "",
-            disable: false
+            indicators: "",
+            disable: false,
+            filledIndicators : false
+
         };
         this.getSentence = this.getSentence.bind(this);
         this.changeDisable = this.changeDisable.bind(this);
@@ -26,6 +29,7 @@ class App extends Component {
         this.setState({
             disable : !this.state.disable
         })
+        return this.state.disable;
     }
 
     sentenceTransition(color){
@@ -34,6 +38,7 @@ class App extends Component {
         setTimeout(function() {
             sentence.style.backgroundColor = 'white';
         }, 600)
+        return sentence;
     }
 
     getSentence(){
@@ -50,15 +55,17 @@ class App extends Component {
                 this.setState({
                     sentenceId: data.id,
                     author: data.author,
-                    content: data.content
+                    content: data.content,
+                    indicators : data.indicators,
                 });
                 this.sentenceTransition("rgba(135,206,235, 0.3)");
             }else{
                 this.setState({
                     content:"ATTENZIONE! Non ci sono più frasi da moderare.",
-                    disable:true
-                })
-                this.sentenceTransition("rgba(255,0,0, 0.4)");
+                    disable:true,
+                    indicators : []
+                });
+                this.sentenceTransition("rgba(255,0,0, 0.3)");
             }
         })
     }
@@ -91,6 +98,10 @@ class App extends Component {
     }
 
     render() {
+        if (!this.state.indicators) {
+            return <div />
+        }
+
         return (
           <div className="container">
               <div className="container-user-context">
@@ -100,7 +111,8 @@ class App extends Component {
               <div className="container-sentence">
                   <div id="text" className="sentence">{this.state.content}</div>
               </div>
-              <AbuseArea sendSentence={this.sendSentence} disable = {this.state.disable} changeDisable = {this.changeDisable}/>
+              <AbuseArea sendSentence={this.sendSentence} disable = {this.state.disable} changeDisable = {this.changeDisable}
+              indicators = {this.state.indicators}/>
           </div>
         );
   }

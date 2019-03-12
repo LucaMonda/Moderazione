@@ -10,19 +10,26 @@ class AbuseArea extends Component {
     constructor(props) {
         super(props);
         this.sendCategories = this.sendCategories.bind(this);
-        this.onChange = this.onChange.bind(this);
-
+        this.handleClickItem = this.handleClickItem.bind(this);
         this.state = {
             items: Items
-        }
+        };
+
+        this.state.items.forEach(item => {
+            if(this.props.indicators.includes(item.value)){
+                item.checked = true;
+            }
+        });
     }
 
-    onChange(value) {
+    handleClickItem(value) {
+        let array;
         if(this.props.disable === false) {
-            let array = this.state.items;
+            array = this.state.items;
             array.filter((item) => item.value === value).map((item) => item.checked = !item.checked);
             this.setState({items: array})
         }
+        return array;
     }
 
     sendCategories() {
@@ -52,7 +59,7 @@ class AbuseArea extends Component {
                                 title={item.title}
                                 desc={item.desc}
                                 checked={item.checked}
-                                onChange={this.onChange}/>
+                                handleClickItem={this.handleClickItem}/>
                         )
                     }
                 </div>
@@ -62,7 +69,7 @@ class AbuseArea extends Component {
                         if(key==="enter") {
                             this.sendCategories();
                         }else{
-                            this.onChange(key - 1)
+                            this.handleClickItem(key - 1)
                         }
                     }}
                     isDisabled={this.props.disable}

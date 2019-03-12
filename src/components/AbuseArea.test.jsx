@@ -9,7 +9,8 @@ describe("AbuseArea", () => {
         sendSentence:  () => {
              jest.fn()},
         changeDisable : () => {
-            jest.fn()}
+            jest.fn()},
+        indicators: []
         }
         ;
     const enzyme = require("enzyme");
@@ -17,7 +18,7 @@ describe("AbuseArea", () => {
     enzyme.configure({ adapter: new Adapter() });
 
     it("changes value of a checkbox", () =>{
-        let wrapper = shallow(<AbuseArea/>);
+        let wrapper = shallow(<AbuseArea {...props}/>);
         wrapper.instance().state.items =
             [
                 {
@@ -50,7 +51,7 @@ describe("AbuseArea", () => {
                 }
             ];
         wrapper.setProps({ disable: false });
-        wrapper.instance().onChange(1);
+        wrapper.instance().handleClickItem(1);
         expect(wrapper.instance().state.items[1].checked).toEqual(true)
         });
 

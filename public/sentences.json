@@ -6,7 +6,7 @@
       "author": "rado",
       "votes": [
       ],
-      "indicators": ["0","1"]
+      "indicators": [0,1]
     },
     {
       "id": "2",
@@ -14,7 +14,7 @@
       "author": "luca",
       "votes": [
       ],
-      "indicators": ["0"]
+      "indicators": [0]
     },
     {
       "id": "3",
@@ -22,7 +22,7 @@
       "author": "simone",
       "votes": [
       ],
-      "indicators": ["0","1","2"]
+      "indicators": [0,1,2]
     },
     {
       "id": "4",
@@ -30,7 +30,7 @@
       "author": "denis",
       "votes": [
       ],
-      "indicators": ["0","1","2","3"]
+      "indicators": [0,1,2,3]
     },
     {
       "id": "5",

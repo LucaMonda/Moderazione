@@ -54,8 +54,8 @@ class AbuseArea extends Component {
     }
 
     sendCategories() {
+        this.props.changeDisable();
         let array = this.state.items;
-
         let arrayClicked = [];
         array.forEach((item) => {
             if (item.checked){
@@ -92,7 +92,9 @@ class AbuseArea extends Component {
                         }else{
                             this.onChange(key - 1)
                         }
-                    }} />
+                    }}
+                    isDisabled={this.props.disable}
+                    />
                 <div className="button-container">
                     <button className="send-info-button" disabled ={this.props.disable}
                             style={{backgroundColor: this.props.disable? "grey" : "#242EE5"}}

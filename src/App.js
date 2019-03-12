@@ -13,11 +13,18 @@ class App extends Component {
             disable: false
         };
         this.getSentence = this.getSentence.bind(this);
+        this.changeDisable = this.changeDisable.bind(this);
         this.sendSentence = this.sendSentence.bind(this);
     }
 
     componentDidMount() {
         this.getSentence();
+    }
+
+    changeDisable(){
+        this.setState({
+            disable : !this.state.disable
+        })
     }
 
     getSentence(){
@@ -80,7 +87,7 @@ class App extends Component {
               <div className="container-sentence">
                   <div id="text" className="sentence">{this.state.content}</div>
               </div>
-              <AbuseArea sendSentence={this.sendSentence} disable = {this.state.disable}/>
+              <AbuseArea sendSentence={this.sendSentence} disable = {this.state.disable} changeDisable = {this.changeDisable}/>
           </div>
         );
   }

@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const fs = require("fs")
+const fs = require("fs");
 
 const app = express();
 
@@ -47,7 +47,7 @@ function saveInfo(id, moderator,categories){
 
 
 function getNextSentence(){
-    let stringa = "stringa-fissa@da-cambiare.it";
+    let string = "stringa-fissa@da-cambiare.it";
     let response = "";
     let write = "";
     let i = 1;
@@ -58,11 +58,11 @@ function getNextSentence(){
             break;
         }
         write = true;
-        data.sentences.find((sentence) => sentence.id == i).votes.filter((vote) => vote.moderator === stringa).map(function(){
+        data.sentences.find(sentence => sentence.id == i).votes.filter((vote) => vote.moderator === string).map(function(){
             write=false;
         });
-        response = data.sentences.find((sentence) => sentence.id == i);
+        response = data.sentences.find(sentence => sentence.id == i);
         i++;
-    }while(write==false)
+    }while(write==false);
     return write == true? response : [];
 }

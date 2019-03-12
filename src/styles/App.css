@@ -27,6 +27,8 @@
 }
 
 .sentence{
+  -webkit-transition: background-color 0.5s; /* For Safari 3.1 to 6.0 */
+  transition: background-color 0.5s;
   line-height: 1.5;
   font-weight:500;
   font-size:43px;

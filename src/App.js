@@ -14,6 +14,7 @@ class App extends Component {
         };
         this.getSentence = this.getSentence.bind(this);
         this.changeDisable = this.changeDisable.bind(this);
+        this.sentenceTransition = this.sentenceTransition.bind(this);
         this.sendSentence = this.sendSentence.bind(this);
     }
 
@@ -25,6 +26,14 @@ class App extends Component {
         this.setState({
             disable : !this.state.disable
         })
+    }
+
+    sentenceTransition(color){
+        let sentence = document.getElementById('text');
+        sentence.style.backgroundColor = color;
+        setTimeout(function() {
+            sentence.style.backgroundColor = 'white';
+        }, 400)
     }
 
     getSentence(){
@@ -43,11 +52,13 @@ class App extends Component {
                     author: data.author,
                     content: data.content
                 });
+                this.sentenceTransition("rgba(135,206,235, 0.3)");
             }else{
                 this.setState({
                     content:"ATTENZIONE! Non ci sono più frasi da moderare.",
                     disable:true
                 })
+                this.sentenceTransition("rgba(255,0,0, 0.4)");
             }
         })
     }
@@ -56,23 +67,26 @@ class App extends Component {
         const obj = {
             id: this.state.sentenceId,
             moderator: "stringa-fissa@da-cambiare.it",
-            categories:array
+            categories: array
         };
 
         fetch('http://localhost:3100/sentence',{
             method: "POST",
+            mode: "cors",
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
             body: JSON.stringify(obj)
         })
-            .then(response => response.json())
-            .then(data => {
-                if(data.result !== "OK"){
-                    console.log("Problem with the server.");
-                }
-            });
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            if(data.result !== "OK"){
+                console.log("Problem with the server.");
+            }
+        });
 
 
     }

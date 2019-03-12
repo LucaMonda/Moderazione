@@ -33,7 +33,7 @@ class App extends Component {
         sentence.style.backgroundColor = color;
         setTimeout(function() {
             sentence.style.backgroundColor = 'white';
-        }, 400)
+        }, 600)
     }
 
     getSentence(){
@@ -87,8 +87,7 @@ class App extends Component {
                 console.log("Problem with the server.");
             }
         });
-
-
+        return obj;
     }
 
     render() {

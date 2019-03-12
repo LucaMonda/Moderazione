@@ -7,8 +7,11 @@ describe("AbuseArea", () => {
     let props = {
         disable:null,
         sendSentence:  () => {
-         jest.fn()}
-    };
+             jest.fn()},
+        changeDisable : () => {
+            jest.fn()}
+        }
+        ;
     const enzyme = require("enzyme");
     const Adapter = require("enzyme-adapter-react-16");
     enzyme.configure({ adapter: new Adapter() });
@@ -86,15 +89,5 @@ describe("AbuseArea", () => {
             ];
         let items = wrapper.instance().sendCategories();
         items.map((item) => expect(item.checked).toEqual(false));
-    })
-
-    it("changes color based on number of sentences to be moderated",() =>{
-        let wrapper = shallow(<AbuseArea {...props}/>);
-        wrapper.setProps({ disable: false });
-        let color = wrapper.instance().handleButtonBehavior();
-        expect(color).toEqual("#242EE5");
-        wrapper.setProps({ disable: true });
-        color = wrapper.instance().handleButtonBehavior();
-        expect(color).toEqual("grey");
-    })
+    });
 });

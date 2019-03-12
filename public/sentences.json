@@ -5,35 +5,40 @@
       "content": "Se parli così è perchè non capisci un cazzo come tutti i ginecologi!",
       "author": "rado",
       "votes": [
-      ]
+      ],
+      "indicators": ["0","1"]
     },
     {
       "id": "2",
       "content": "Se parli così è perchè non capisci un cazzo come tutti gli stupidi!",
       "author": "luca",
       "votes": [
-      ]
+      ],
+      "indicators": ["0"]
     },
     {
       "id": "3",
       "content": "Se parli così è perchè non capisci un cazzo come tutti i cretini!",
       "author": "simone",
       "votes": [
-      ]
+      ],
+      "indicators": ["0","1","2"]
     },
     {
       "id": "4",
       "content": "Se parli così è perchè non capisci un cazzo come tutti i panettieri!",
       "author": "denis",
       "votes": [
-      ]
+      ],
+      "indicators": ["0","1","2","3"]
     },
     {
       "id": "5",
       "content": "Se parli così è perchè non capisci un cazzo come tutti i calciatori!",
       "author": "matteo",
       "votes": [
-      ]
+      ],
+      "indicators": []
     }
   ]
 }

@@ -99,7 +99,7 @@ class App extends Component {
 
     render() {
         if (!this.state.indicators) {
-            return <div />
+            return null
         }
 
         return (

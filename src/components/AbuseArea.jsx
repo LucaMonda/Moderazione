@@ -22,6 +22,15 @@ class AbuseArea extends Component {
         });
     }
 
+
+    handleKeyboardEvent(key){
+        if(key==="enter") {
+            this.sendCategories();
+        }else{
+            this.handleClickItem(key - 1)
+        }
+    }
+
     handleClickItem(value) {
         let array;
         if(this.props.disable === false) {
@@ -65,13 +74,7 @@ class AbuseArea extends Component {
                 </div>
                 <KeyboardEventHandler
                     handleKeys={['1', '2', '3', '4', "enter"]}
-                    onKeyEvent={(key) => {
-                        if(key==="enter") {
-                            this.sendCategories();
-                        }else{
-                            this.handleClickItem(key - 1)
-                        }
-                    }}
+                    onKeyEvent={(key) => this.handleKeyboardEvent(key)}
                     isDisabled={this.props.disable}
                     />
                 <div className="button-container">

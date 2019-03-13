@@ -28,7 +28,7 @@ class App extends Component {
     changeDisable(){
         this.setState({
             disable : !this.state.disable
-        })
+        });
         return this.state.disable;
     }
 
@@ -37,7 +37,7 @@ class App extends Component {
         sentence.style.backgroundColor = color;
         setTimeout(function() {
             sentence.style.backgroundColor = 'white';
-        }, 600)
+        }, 600);
         return sentence;
     }
 

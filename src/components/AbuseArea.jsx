@@ -29,6 +29,7 @@ class AbuseArea extends Component {
         }else{
             this.handleClickItem(key - 1)
         }
+        return key;
     }
 
     handleClickItem(value) {

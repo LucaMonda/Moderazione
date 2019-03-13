@@ -17,7 +17,7 @@ describe("AbuseArea", () => {
     const Adapter = require("enzyme-adapter-react-16");
     enzyme.configure({ adapter: new Adapter() });
 
-    it("changes value of a checkbox", () =>{
+    it("changes value of a checkbox in handleClickItem", () =>{
         let wrapper = shallow(<AbuseArea {...props}/>);
         wrapper.instance().state.items =
             [
@@ -53,9 +53,12 @@ describe("AbuseArea", () => {
         wrapper.setProps({ disable: false });
         wrapper.instance().handleClickItem(1);
         expect(wrapper.instance().state.items[1].checked).toEqual(true)
+        wrapper.setProps({ disable: true });
+        wrapper.instance().handleClickItem(2);
+        expect(wrapper.instance().state.items[2].checked).toEqual(false)
         });
 
-    it("uncheck all selected divs",() =>{
+    it("uncheck all selected divs after click on button",() =>{
         let wrapper = shallow(<AbuseArea {...props}/>);
         wrapper.instance().state.items =
             [
@@ -99,5 +102,20 @@ describe("AbuseArea", () => {
         expect(wrapper.find(".send-info-button").getElement().props.disabled).toEqual(true);
         wrapper.setProps({disable:false});
         expect(wrapper.find(".send-info-button").getElement().props.disabled).toEqual(false);
+    })
+
+    it("handleKeyboardEvent",() =>{
+        let wrapper = shallow(<AbuseArea {...props}/>);
+        let key=1;
+        let spy = spyOn(wrapper.instance(),"handleClickItem");
+        let spy2 = spyOn(wrapper.instance(),"sendCategories");
+        wrapper.instance().handleKeyboardEvent(key);
+        expect(spy).toHaveBeenCalled();
+        expect(spy2).not.toHaveBeenCalled();
+        spy.calls.reset();
+        key="enter";
+        wrapper.instance().handleKeyboardEvent(key);
+        expect(spy).not.toHaveBeenCalled();
+        expect(spy2).toHaveBeenCalled();
     })
 });

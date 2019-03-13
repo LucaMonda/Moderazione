@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import AbuseItem from './AbuseItem.jsx';
 import '../styles/AbuseArea.css';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import {Items} from "../configuration/configuration";
+import {Items} from "../configuration/item-configuration";
 
 
 class AbuseArea extends Component {

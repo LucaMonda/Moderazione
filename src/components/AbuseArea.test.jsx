@@ -91,4 +91,13 @@ describe("AbuseArea", () => {
         let items = wrapper.instance().sendCategories();
         items.map((item) => expect(item.checked).toEqual(false));
     });
+
+    it("renders button correctly", () =>{
+        let wrapper = shallow(<AbuseArea {...props}/>);
+        wrapper.setProps({disable:true});
+        expect(wrapper.find(".send-info-button").text()).toEqual("AVANTI");
+        expect(wrapper.find(".send-info-button").getElement().props.disabled).toEqual(true);
+        wrapper.setProps({disable:false});
+        expect(wrapper.find(".send-info-button").getElement().props.disabled).toEqual(false);
+    })
 });

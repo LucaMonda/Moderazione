@@ -22,26 +22,36 @@ describe("App", () => {
       let spy = spyOn(wrapper.instance(), 'getSentence');
       wrapper.instance().componentDidMount();
       expect(spy).toHaveBeenCalled();
-  })
+  });
 
   it("changes value of disable variable",() =>{
     let wrapper = shallow(<App/>);
     wrapper.instance().state.disable=false;
     wrapper.instance().changeDisable();
     expect(wrapper.instance().state.disable).toEqual(true);
-  })
+  });
 
   it("renders anything if indicators are not processed yet",() =>{
     let wrapper = shallow(<App/>);
     wrapper.instance().state.indicators="";
     expect(wrapper.find(".container").exists()).toEqual(false);
-  })
+  });
 
-  xit("renders something if indicators are processed",() =>{
+  it("renders something if indicators are processed",() =>{
     let wrapper = shallow(<App/>);
     wrapper.instance().state.indicators=[];
-    wrapper.instance.render();
+    wrapper.instance().forceUpdate();
     expect(wrapper.find(".container").exists()).toEqual(true);
+  });
+
+  it("renders UI correctly", () =>{
+    let wrapper = shallow(<App/>);
+    wrapper.instance().state.indicators = true;
+    wrapper.instance().state.author = "author";
+    wrapper.instance().state.content = "content";
+    wrapper.instance().forceUpdate();
+    expect(wrapper.find(".user").text().toString()).toEqual(wrapper.instance().state.author);
+    expect(wrapper.find(".sentence").text().toString()).toEqual(wrapper.instance().state.content);
   })
 
 });

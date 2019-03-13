@@ -12,7 +12,7 @@ class AbuseItem extends Component {
         return(
             <div className="abuse-div" onClick={() => this.props.handleClickItem(this.props.value)}>
                 <div className="abuse-div-img">
-                    <img src={this.props.checked ? this.checkedImage : this.uncheckedImage} alt=""/>
+                    <img className = "img-item" src={this.props.checked ? this.checkedImage : this.uncheckedImage} alt=""/>
                 </div>
                 <div className="label-title-div">
                     <div className="title-label">{this.props.title}</div>

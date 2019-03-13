@@ -106,7 +106,6 @@ class App extends Component {
           <div className="container">
               <div className="container-user-context">
                   <div className="user">{this.state.author}</div>
-                  <div className="show-context">Mostrami il contesto</div>
               </div>
               <div className="container-sentence">
                   <div id="text" className="sentence">{this.state.content}</div>

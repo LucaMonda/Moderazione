@@ -21,6 +21,7 @@ app.get("/sentence", (req, res) => {
     res.json(response);
 });
 
+/*
 app.post("/sentence", (req, res) => {
     let id = req.body.id;
     let moderator = req.body.moderator;
@@ -32,6 +33,7 @@ app.post("/sentence", (req, res) => {
     );
     saveInfo(id, moderator,categories);
 });
+*/
 
 function saveInfo(id, moderator,categories){
     let obj = {

@@ -51,7 +51,7 @@ class AbuseArea extends Component {
                 arrayClicked.push(item.value)
             }
         });
-        this.props.sendSentence(arrayClicked);
+        this.props.handleSubmit(arrayClicked);
         array.map((item) => item.checked = false);
         this.setState({items: array});
         return array;

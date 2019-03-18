@@ -16,9 +16,10 @@ class App extends Component {
 
         };
         this.getSentence = this.getSentence.bind(this);
+        this.sendSentence = this.sendSentence.bind(this);
         this.changeDisable = this.changeDisable.bind(this);
         this.sentenceTransition = this.sentenceTransition.bind(this);
-        this.sendSentence = this.sendSentence.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -70,14 +71,19 @@ class App extends Component {
         })
     }
 
-    sendSentence(array){
+    handleSubmit(array) {
+        this.sendSentence(array);
+        this.getSentence(array);
+    }
+
+    sendSentence(array) {
         const obj = {
             id: this.state.sentenceId,
             moderator: "stringa-fissa@da-cambiare.it",
             categories: array
         };
 
-        fetch('http://localhost:3100/sentence',{
+        fetch('http://localhost:8000/sentence',{
             method: "POST",
             mode: "cors",
             headers: {
@@ -110,7 +116,7 @@ class App extends Component {
               <div className="container-sentence">
                   <div id="text" className="sentence">{this.state.content}</div>
               </div>
-              <AbuseArea sendSentence={this.sendSentence} disable = {this.state.disable} changeDisable = {this.changeDisable}
+              <AbuseArea handleSubmit={this.handleSubmit} disable={this.state.disable} changeDisable={this.changeDisable}
               indicators = {this.state.indicators}/>
           </div>
         );

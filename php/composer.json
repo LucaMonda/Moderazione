@@ -66,6 +66,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "build": [
+            "composer install"
         ]
     },
     "conflict": {

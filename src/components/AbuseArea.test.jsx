@@ -91,7 +91,7 @@ describe("AbuseArea", () => {
                     checked: true
                 }
             ];
-        let items = wrapper.instance().sendCategories();
+        let items = wrapper.instance().handleClickButton();
         items.map((item) => expect(item.checked).toEqual(false));
     });
 
@@ -108,7 +108,7 @@ describe("AbuseArea", () => {
         let wrapper = shallow(<AbuseArea {...props}/>);
         let key=1;
         let spy = spyOn(wrapper.instance(),"handleClickItem");
-        let spy2 = spyOn(wrapper.instance(),"sendCategories");
+        let spy2 = spyOn(wrapper.instance(),"handleClickButton");
         wrapper.instance().handleKeyboardEvent(key);
         expect(spy).toHaveBeenCalled();
         expect(spy2).not.toHaveBeenCalled();

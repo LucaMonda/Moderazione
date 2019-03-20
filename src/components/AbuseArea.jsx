@@ -9,23 +9,18 @@ class AbuseArea extends Component {
 
     constructor(props) {
         super(props);
-        this.sendCategories = this.sendCategories.bind(this);
+        this.handleClickButton = this.handleClickButton.bind(this);
         this.handleClickItem = this.handleClickItem.bind(this);
+        this.setIndicators = this.setIndicators.bind(this);
         this.state = {
             items: Items
         };
-
-        this.state.items.forEach(item => {
-            if(this.props.indicators.includes(item.value)){
-                item.checked = true;
-            }
-        });
+        this.setIndicators();
     }
-
 
     handleKeyboardEvent(key){
         if(key==="enter") {
-            this.sendCategories();
+            this.handleClickButton();
         }else{
             this.handleClickItem(key - 1)
         }
@@ -42,18 +37,31 @@ class AbuseArea extends Component {
         return array;
     }
 
-    sendCategories() {
-        this.props.changeDisable();
-        let array = this.state.items;
+    setIndicators(){
+        this.state.items.forEach(item => {
+            if(this.props.indicators.includes(item.value)){
+                item.checked = true;
+            }
+        });
+    }
+
+    fillArrayCheckedItems(array){
         let arrayClicked = [];
         array.forEach((item) => {
             if (item.checked){
                 arrayClicked.push(item.value)
             }
         });
+        return arrayClicked;
+    }
+
+    handleClickButton() {
+        let array = this.state.items;
+        let arrayClicked = this.fillArrayCheckedItems(array)
         this.props.handleSubmit(arrayClicked);
         array.map((item) => item.checked = false);
         this.setState({items: array});
+        this.setIndicators();
         return array;
     }
 
@@ -81,7 +89,7 @@ class AbuseArea extends Component {
                 <div className="button-container">
                     <button className="send-info-button" disabled ={this.props.disable}
                             style={{backgroundColor: this.props.disable? "grey" : "#242EE5"}}
-                            onClick={this.sendCategories}>AVANTI
+                            onClick={this.handleClickButton}>AVANTI
                     </button>
                 </div>
             </div>

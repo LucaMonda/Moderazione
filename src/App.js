@@ -17,20 +17,12 @@ class App extends Component {
         };
         this.getSentence = this.getSentence.bind(this);
         this.sendSentence = this.sendSentence.bind(this);
-        this.changeDisable = this.changeDisable.bind(this);
         this.sentenceTransition = this.sentenceTransition.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
         this.getSentence();
-    }
-
-    changeDisable(){
-        this.setState({
-            disable : !this.state.disable
-        });
-        return this.state.disable;
     }
 
     sentenceTransition(color){
@@ -116,7 +108,7 @@ class App extends Component {
               <div className="container-sentence">
                   <div id="text" className="sentence">{this.state.content}</div>
               </div>
-              <AbuseArea handleSubmit={this.handleSubmit} disable={this.state.disable} changeDisable={this.changeDisable}
+              <AbuseArea handleSubmit={this.handleSubmit} disable={this.state.disable}
               indicators = {this.state.indicators}/>
           </div>
         );

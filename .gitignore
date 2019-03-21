@@ -24,3 +24,6 @@ yarn-error.log*
 
 id_rsa_react_app
 id_rsa_react_app.pub
+
+*.bs.js
+lib

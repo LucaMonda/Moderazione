@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import AbuseItem from './AbuseItem.jsx';
+import AbuseItem from './AbuseItem.bs';
 import '../styles/AbuseArea.css';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import {Items} from "../configuration/item-configuration";
@@ -62,14 +62,14 @@ class AbuseArea extends Component {
             <div className="container-area">
                 <div className="container-item">
                     {
-                        this.state.items.map((item) =>
-                            <AbuseItem
-                                key={item.value}
-                                value={item.value}
-                                title={item.title}
-                                desc={item.desc}
-                                checked={item.checked}
-                                handleClickItem={this.handleClickItem}/>
+                        this.state.items.map((item, i) => <AbuseItem
+                              key={i}
+                              desc={item.desc}
+                              value={item.value}
+                              title={item.title}
+                              checked={item.checked}
+                              handleClickItem={this.handleClickItem}
+                            />
                         )
                     }
                 </div>
@@ -79,7 +79,7 @@ class AbuseArea extends Component {
                     isDisabled={this.props.disable}
                     />
                 <div className="button-container">
-                    <button className="send-info-button" disabled ={this.props.disable}
+                    <button className="send-info-button" disabled={this.props.disable}
                             style={{backgroundColor: this.props.disable? "grey" : "#242EE5"}}
                             onClick={this.sendCategories}>AVANTI
                     </button>

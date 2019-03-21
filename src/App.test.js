@@ -14,6 +14,7 @@ describe("App", () => {
     wrapper.instance().state.sentenceId = "1";
     let obj = wrapper.instance().sendSentence(array);
     expect(obj.categories).toEqual(array);
+    expect(obj.moderator).toEqual("stringa-fissa@da-cambiare.it");
     expect(obj.id).toEqual(wrapper.instance().state.sentenceId);
   });
 
@@ -22,13 +23,6 @@ describe("App", () => {
       let spy = spyOn(wrapper.instance(), 'getSentence');
       wrapper.instance().componentDidMount();
       expect(spy).toHaveBeenCalled();
-  });
-
-  it("changes value of disable variable",() =>{
-    let wrapper = shallow(<App/>);
-    wrapper.instance().state.disable=false;
-    wrapper.instance().changeDisable();
-    expect(wrapper.instance().state.disable).toEqual(true);
   });
 
   it("renders anything if indicators are not processed yet",() =>{
@@ -52,6 +46,16 @@ describe("App", () => {
     wrapper.instance().forceUpdate();
     expect(wrapper.find(".user").text().toString()).toEqual(wrapper.instance().state.author);
     expect(wrapper.find(".sentence").text().toString()).toEqual(wrapper.instance().state.content);
+  })
+
+  it("calls method getSentence and sendSentence when submit",() =>{
+    let wrapper = shallow(<App/>);
+    let array = ["1","2"];
+    let spy = spyOn(wrapper.instance(), 'sendSentence');
+    let spy2 = spyOn(wrapper.instance(), 'getSentence');
+    wrapper.instance().handleSubmit(array);
+    expect(spy).toHaveBeenCalled();
+    expect(spy2).toHaveBeenCalled();
   })
 
 });

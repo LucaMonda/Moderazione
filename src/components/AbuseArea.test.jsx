@@ -8,11 +8,10 @@ describe("AbuseArea", () => {
         disable:null,
         sendSentence:  () => {
              jest.fn()},
-        changeDisable : () => {
-            jest.fn()},
-        indicators: []
-        }
-        ;
+            indicators: [0,1],
+        handleSubmit() {
+            jest.fn()}
+    }
     const enzyme = require("enzyme");
     const Adapter = require("enzyme-adapter-react-16");
     enzyme.configure({ adapter: new Adapter() });
@@ -58,8 +57,12 @@ describe("AbuseArea", () => {
         expect(wrapper.instance().state.items[2].checked).toEqual(false)
         });
 
+    //TODO Aggiungere expect(spy) anche per handleSubmit
     it("uncheck all selected divs after click on button",() =>{
         let wrapper = shallow(<AbuseArea {...props}/>);
+        let spy1 = spyOn(props, 'handleSubmit');
+        let spy2 = spyOn(wrapper.instance(), 'fillArrayCheckedItems');
+        let spy3 = spyOn(wrapper.instance(), 'setIndicators');
         wrapper.instance().state.items =
             [
                 {
@@ -93,6 +96,8 @@ describe("AbuseArea", () => {
             ];
         let items = wrapper.instance().handleClickButton();
         items.map((item) => expect(item.checked).toEqual(false));
+        expect(spy2).toHaveBeenCalled();
+        expect(spy3).toHaveBeenCalled();
     });
 
     it("renders button correctly", () =>{
@@ -117,5 +122,86 @@ describe("AbuseArea", () => {
         wrapper.instance().handleKeyboardEvent(key);
         expect(spy).not.toHaveBeenCalled();
         expect(spy2).toHaveBeenCalled();
+    })
+
+    it("sets indicators correctly",() =>{
+        let wrapper = shallow(<AbuseArea {...props}/>);
+        wrapper.instance().state.items =
+            [
+                {
+                    value: 0,
+                    title: 'OSCENO',
+                    desc: 'Offese, insulti, attacchi personali, ecc.',
+                    imageGrey: "../images/osceno/grey.svg",
+                    checked: false
+                },
+                {
+                    value: 1,
+                    title: 'MINACCIA',
+                    desc: 'Violenza, minacce, provocazioni, ecc.',
+                    imageGrey: "../images/minaccia/grey.svg",
+                    checked: false
+                },
+                {
+                    value: 2,
+                    title: 'INSULTO',
+                    desc: 'Parolacce, riferimenti al sesso, ecc.',
+                    imageGrey: "../images/insulto/grey.svg",
+                    checked: false
+                },
+                {
+                    value: 3,
+                    title: 'RAZZIALE',
+                    desc: 'Riferimenti ad etnie, luoghi comuni regionali, ecc.',
+                    imageGrey: "../images/razziale/grey.svg",
+                    checked: false
+                }
+            ];
+        wrapper.instance().setIndicators();
+        expect(wrapper.instance().state.items[0].checked).toEqual(true);
+        expect(wrapper.instance().state.items[1].checked).toEqual(true);
+        expect(wrapper.instance().state.items[2].checked).toEqual(false);
+        expect(wrapper.instance().state.items[3].checked).toEqual(false);
+    })
+
+    it("fills array with checked items correctly",() =>{
+        let wrapper = shallow(<AbuseArea {...props}/>);
+        wrapper.instance().state.items =
+            [
+                {
+                    value: 0,
+                    title: 'OSCENO',
+                    desc: 'Offese, insulti, attacchi personali, ecc.',
+                    imageGrey: "../images/osceno/grey.svg",
+                    checked: false
+                },
+                {
+                    value: 1,
+                    title: 'MINACCIA',
+                    desc: 'Violenza, minacce, provocazioni, ecc.',
+                    imageGrey: "../images/minaccia/grey.svg",
+                    checked: true
+                },
+                {
+                    value: 2,
+                    title: 'INSULTO',
+                    desc: 'Parolacce, riferimenti al sesso, ecc.',
+                    imageGrey: "../images/insulto/grey.svg",
+                    checked: false
+                },
+                {
+                    value: 3,
+                    title: 'RAZZIALE',
+                    desc: 'Riferimenti ad etnie, luoghi comuni regionali, ecc.',
+                    imageGrey: "../images/razziale/grey.svg",
+                    checked: true
+                }
+            ];
+        let array = wrapper.instance().state.items;
+        let arrayClicked = wrapper.instance().fillArrayCheckedItems(array);
+        expect(arrayClicked.length).toEqual(2);
+        expect(arrayClicked[0]).toEqual(1);
+        expect(arrayClicked[1]).toEqual(3);
+
     })
 });

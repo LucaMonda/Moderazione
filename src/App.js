@@ -35,7 +35,7 @@ class App extends Component {
     }
 
     getSentence(){
-        fetch('http://localhost:3100/sentence',{
+        fetch('http://localhost:8000/sentence',{
             mode: 'cors',
             headers : {
                 'Content-Type': 'application/json',
@@ -44,6 +44,7 @@ class App extends Component {
         })
         .then(res => res.json())
         .then(data => {
+            console.log(data);
             if (data.length !== 0) {
                 this.setState({
                     sentenceId: data.id,
@@ -82,7 +83,7 @@ class App extends Component {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify(obj)
+            body:  JSON.stringify(obj)
         })
         .then(response => {
             return response.json()

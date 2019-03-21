@@ -9,38 +9,38 @@ services:
       dockerfile: ./docker/php/Dockerfile
     volumes:
       - ./php:/var/www:cached
-    #environment:
-     # - DATABASE_URL=mysql://root:root@mysql:3306/moderation
+    environment:
+      - DATABASE_URL=mysql://root:root@mysql:3306/moderation
     ports:
       - 8000:8000
     command: ["php", "bin/console", "server:run", "0.0.0.0:8000"]
     networks:
       - web
 
-  #mysql:
-  #  image: mysql
-   # command: --default-authentication-plugin=mysql_native_password
-    #restart: always
-   # ports:
-   #   - 3306:3306
-   # environment:
-   #   MYSQL_ROOT_PASSWORD: root
-   #   MYSQL_DATABASE: moderation
-   # networks:
-   #   - web
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+       MYSQL_ROOT_PASSWORD: root
+       MYSQL_DATABASE: moderation
+    networks:
+      - web
 
-  #phpmyadmin:
-   # image: phpmyadmin/phpmyadmin
-    #environment:
-     # PMA_PORT: 3306
-      #PMA_HOST: mysql
-      #PMA_USER: root
-      #PMA_PASSWORD: root
-    #ports:
-    #  - "8080:80"
-    #restart: always
-    #networks:
-    #  - web
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_PORT: 3306
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8080:80"
+    restart: always
+    networks:
+      - web
 
 networks:
   web:

@@ -8,17 +8,7 @@ describe("App", () => {
   const Adapter = require("enzyme-adapter-react-16");
   enzyme.configure({ adapter: new Adapter() });
 
-  it("builds object correctly to send to server", () => {
-    let wrapper = shallow(<App/>);
-    const array = ["1","2"];
-    wrapper.instance().state.sentenceId = "1";
-    let obj = wrapper.instance().sendSentence(array);
-    expect(obj.categories).toEqual(array);
-    expect(obj.moderator).toEqual("stringa-fissa@da-cambiare.it");
-    expect(obj.id).toEqual(wrapper.instance().state.sentenceId);
-  });
-
-  it("calls method for get new sentence when rendered",() =>{
+  it("calls method for get new sentence when mounted",() =>{
       let wrapper = mount(<App/>);
       let spy = spyOn(wrapper.instance(), 'getSentence');
       wrapper.instance().componentDidMount();
@@ -48,14 +38,56 @@ describe("App", () => {
     expect(wrapper.find(".sentence").text().toString()).toEqual(wrapper.instance().state.content);
   })
 
-  it("calls method getSentence and sendSentence when submit",() =>{
+  it("calls method getSentence and sendSentence when submit",async () =>{
     let wrapper = shallow(<App/>);
     let array = ["1","2"];
     let spy = spyOn(wrapper.instance(), 'sendSentence');
     let spy2 = spyOn(wrapper.instance(), 'getSentence');
-    wrapper.instance().handleSubmit(array);
+    await wrapper.instance().handleSubmit(array);
     expect(spy).toHaveBeenCalled();
     expect(spy2).toHaveBeenCalled();
   })
 
+  it("changes disable value when calling changeDisable() method",() =>{
+    let wrapper = shallow(<App/>);
+    wrapper.instance().state.disable=false;
+    wrapper.instance().changeDisable();
+    expect(wrapper.instance().state.disable).toEqual(true);
+    wrapper.instance().changeDisable();
+    expect(wrapper.instance().state.disable).toEqual(false);
+  })
+
+  it("sets state correctly when gets new sentence",async function(done) {
+    const mockSuccessResponse = {
+      "id": "1",
+      "content": "Se parli così è perchè non capisci un cazzo come tutti i ginecologi!",
+      "author": "rado",
+      "votes": [],
+      "indicators": [
+        0,
+        1
+      ]
+    };
+    const mockJsonPromise = Promise.resolve(mockSuccessResponse);
+    const mockFetchPromise = Promise.resolve({
+      json: () => mockJsonPromise,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+
+    let wrapper = shallow(<App/>);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+
+    process.nextTick(() => {
+      expect(wrapper.instance().state.sentenceId).toEqual("1");
+      expect(wrapper.instance().state.author).toEqual("rado");
+      expect(wrapper.instance().state.content)
+          .toEqual("Se parli così è perchè non capisci un cazzo come tutti i ginecologi!");
+      expect(wrapper.instance().state.indicators).toEqual([
+        0,
+        1
+      ]);
+      global.fetch.mockClear();
+      done();
+    })
+  })
 });

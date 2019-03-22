@@ -8,6 +8,12 @@ describe("App", () => {
   const Adapter = require("enzyme-adapter-react-16");
   enzyme.configure({ adapter: new Adapter() });
 
+  let wrapper = "";
+
+  beforeEach(() => {
+    wrapper = shallow(<App/>);
+  });
+
   it("calls method for get new sentence when mounted",() =>{
       let wrapper = mount(<App/>);
       let spy = spyOn(wrapper.instance(), 'getSentence');
@@ -16,20 +22,17 @@ describe("App", () => {
   });
 
   it("renders anything if indicators are not processed yet",() =>{
-    let wrapper = shallow(<App/>);
     wrapper.instance().state.indicators="";
     expect(wrapper.find(".container").exists()).toEqual(false);
   });
 
   it("renders something if indicators are processed",() =>{
-    let wrapper = shallow(<App/>);
     wrapper.instance().state.indicators=[];
     wrapper.instance().forceUpdate();
     expect(wrapper.find(".container").exists()).toEqual(true);
   });
 
   it("renders UI correctly", () =>{
-    let wrapper = shallow(<App/>);
     wrapper.instance().state.indicators = true;
     wrapper.instance().state.author = "author";
     wrapper.instance().state.content = "content";
@@ -39,7 +42,6 @@ describe("App", () => {
   })
 
   it("calls method getSentence and sendSentence when submit",async () =>{
-    let wrapper = shallow(<App/>);
     let array = ["1","2"];
     let spy = spyOn(wrapper.instance(), 'sendSentence');
     let spy2 = spyOn(wrapper.instance(), 'getSentence');
@@ -49,7 +51,6 @@ describe("App", () => {
   })
 
   it("changes disable value when calling changeDisable() method",() =>{
-    let wrapper = shallow(<App/>);
     wrapper.instance().state.disable=false;
     wrapper.instance().changeDisable();
     expect(wrapper.instance().state.disable).toEqual(true);
@@ -74,7 +75,6 @@ describe("App", () => {
     });
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
 
-    let wrapper = shallow(<App/>);
     wrapper.instance().getSentence();
 
     process.nextTick(() => {

@@ -19,11 +19,6 @@ class ModeratorRepository
     }
 
     public function getNextSentence(){
-        /*array_map
-        array_filter
-        array_reduce
-        array_walk*/
-
         $email = 'stringa-fissa@da-cambiare.it';
         $fileJson = json_decode(file_get_contents('../public/sentences.json'),true);
         $foundSentence = [];

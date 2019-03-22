@@ -75,7 +75,7 @@ describe("App", () => {
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
 
     let wrapper = shallow(<App/>);
-    expect(global.fetch).toHaveBeenCalledTimes(1);
+    wrapper.instance().getSentence();
 
     process.nextTick(() => {
       expect(wrapper.instance().state.sentenceId).toEqual("1");

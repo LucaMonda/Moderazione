@@ -20,10 +20,11 @@ class ModeratorController extends Controller
         $id = $parametersAsArray['id'];
         $moderator = $parametersAsArray['moderator'];
         $categories = $parametersAsArray['categories'];
+
         $this->saveInfo($id,$moderator,$categories);
 
         return new JsonResponse([
-           'result' => 'OK'
+            'result' => 'OK'
         ]);
     }
 

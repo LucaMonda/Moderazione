@@ -12,6 +12,7 @@ class AbuseArea extends Component {
         this.handleClickButton = this.handleClickButton.bind(this);
         this.handleClickItem = this.handleClickItem.bind(this);
         this.setIndicators = this.setIndicators.bind(this);
+        this.disableItems = this.disableItems.bind(this);
         this.state = {
             items: Items
         };
@@ -40,6 +41,14 @@ class AbuseArea extends Component {
         return arrayItems;
     }
 
+    disableItems(){
+        let arrayItems = this.state.items;
+        arrayItems.forEach((item) => {
+            item.checked = false;
+        })
+        this.setState({items: arrayItems})
+    }
+
     setIndicators(){
         let arrayItems = this.state.items;
         arrayItems.forEach(item => {
@@ -66,7 +75,10 @@ class AbuseArea extends Component {
     async handleClickButton() {
         let arrayItems = this.state.items;
         let arrayClicked = this.fillArrayCheckedItems(arrayItems);
-        this.props.handleSubmit(arrayClicked).then(() => this.setIndicators());
+        this.props.changeDisable();
+        this.disableItems();
+        await this.props.handleSubmit(arrayClicked).then(() => this.setIndicators());
+        this.props.changeDisable();
         return arrayItems;
     }
 

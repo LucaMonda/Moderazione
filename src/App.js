@@ -19,6 +19,7 @@ class App extends Component {
         this.sendSentence = this.sendSentence.bind(this);
         this.sentenceTransition = this.sentenceTransition.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.changeDisable = this.changeDisable.bind(this);
     }
 
     componentDidMount() {
@@ -32,6 +33,12 @@ class App extends Component {
             sentence.style.backgroundColor = 'white';
         }, 600);
         return sentence;
+    }
+
+    changeDisable(){
+        this.setState({
+            disable:!this.state.disable
+        });
     }
 
      getSentence(){
@@ -64,9 +71,7 @@ class App extends Component {
     }
 
     async handleSubmit(arrayItemsClicked) {
-
         await this.sendSentence(arrayItemsClicked);
-
         return await this.getSentence();
     }
 
@@ -110,7 +115,7 @@ class App extends Component {
                   <div id="text" className="sentence">{this.state.content}</div>
               </div>
               <AbuseArea handleSubmit={this.handleSubmit} disable={this.state.disable}
-              indicators = {this.state.indicators}/>
+              indicators = {this.state.indicators} changeDisable={this.changeDisable}/>
           </div>
         );
   }

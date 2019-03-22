@@ -54,8 +54,13 @@ class ModeratorController extends Controller
         array_reduce
         array_walk*/
 
-        $foundSentence = [];
+        $foundSentence = $this->getNextSentence($fileJson,$email);
+        return new JsonResponse($foundSentence);
 
+    }
+
+    private function getNextSentence($fileJson,$email){
+        $foundSentence = [];
         foreach($fileJson['sentences'] as $sentence){
             $finded = false;
             foreach($sentence['votes'] as $moderatorVote){
@@ -69,8 +74,7 @@ class ModeratorController extends Controller
                 break;
             }
         }
-        return new JsonResponse($foundSentence);
-
+        return $foundSentence;
     }
 
 

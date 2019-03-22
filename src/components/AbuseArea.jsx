@@ -15,39 +15,47 @@ class AbuseArea extends Component {
         this.state = {
             items: Items
         };
+    }
+
+    componentDidMount() {
         this.setIndicators();
     }
 
-    handleKeyboardEvent(key){
-        if(key==="enter") {
+    handleKeyboardEvent(keyPressed){
+        if(keyPressed==="enter") {
             this.handleClickButton();
         }else{
-            this.handleClickItem(key - 1)
+            this.handleClickItem(keyPressed - 1)
         }
-        return key;
+        return keyPressed;
     }
 
     handleClickItem(value) {
-        let array;
+        let arrayItems;
         if(this.props.disable === false) {
-            array = this.state.items;
-            array.filter((item) => item.value === value).map((item) => item.checked = !item.checked);
-            this.setState({items: array})
+            arrayItems = this.state.items;
+            arrayItems.filter((item) => item.value === value).map((item) => item.checked = !item.checked);
+            this.setState({items: arrayItems})
         }
-        return array;
+        return arrayItems;
     }
 
     setIndicators(){
-        this.state.items.forEach(item => {
+        let arrayItems = this.state.items;
+        arrayItems.forEach(item => {
             if(this.props.indicators.includes(item.value)){
                 item.checked = true;
+            }else{
+                item.checked = false;
             }
         });
+        this.setState({items: arrayItems});
+        return arrayItems;
     }
 
-    fillArrayCheckedItems(array){
+    fillArrayCheckedItems(arrayItems){
         let arrayClicked = [];
-        array.forEach((item) => {
+        arrayItems.forEach((item) => {
             if (item.checked){
                 arrayClicked.push(item.value)
             }
@@ -55,14 +63,11 @@ class AbuseArea extends Component {
         return arrayClicked;
     }
 
-    handleClickButton() {
-        let array = this.state.items;
-        let arrayClicked = this.fillArrayCheckedItems(array)
-        this.props.handleSubmit(arrayClicked);
-        array.map((item) => item.checked = false);
-        this.setState({items: array});
-        this.setIndicators();
-        return array;
+    async handleClickButton() {
+        let arrayItems = this.state.items;
+        let arrayClicked = this.fillArrayCheckedItems(arrayItems);
+        this.props.handleSubmit(arrayClicked).then(() => this.setIndicators());
+        return arrayItems;
     }
 
     render() {

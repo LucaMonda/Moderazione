@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import AbuseArea from "./components/AbuseArea.jsx"
 import './styles/App.css';
 
@@ -34,8 +34,8 @@ class App extends Component {
         return sentence;
     }
 
-    getSentence(){
-        fetch('http://localhost:8000/sentence',{
+     getSentence(){
+        return fetch('http://localhost:8000/sentence',{
             mode: 'cors',
             headers : {
                 'Content-Type': 'application/json',
@@ -44,7 +44,6 @@ class App extends Component {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             if (data.length !== 0) {
                 this.setState({
                     sentenceId: data.id,
@@ -64,19 +63,21 @@ class App extends Component {
         })
     }
 
-    handleSubmit(array) {
-        this.sendSentence(array);
-        this.getSentence(array);
+    async handleSubmit(arrayItemsClicked) {
+
+        await this.sendSentence(arrayItemsClicked);
+
+        return await this.getSentence();
     }
 
-    sendSentence(array) {
+     sendSentence(arrayItemsClicked) {
         const obj = {
             id: this.state.sentenceId,
             moderator: "stringa-fissa@da-cambiare.it",
-            categories: array
+            categories: arrayItemsClicked
         };
 
-        fetch('http://localhost:8000/sentence',{
+        return fetch('http://localhost:8000/sentence',{
             method: "POST",
             mode: "cors",
             headers: {
@@ -93,7 +94,6 @@ class App extends Component {
                 console.log("Problem with the server.");
             }
         });
-        return obj;
     }
 
     render() {

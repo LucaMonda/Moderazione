@@ -78,7 +78,6 @@ class AbuseArea extends Component {
         this.props.changeDisable();
         this.disableItems();
         await this.props.handleSubmit(arrayClicked).then(() => this.setIndicators());
-        this.props.changeDisable();
         return arrayItems;
     }
 

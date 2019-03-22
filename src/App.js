@@ -57,6 +57,7 @@ class App extends Component {
                     author: data.author,
                     content: data.content,
                     indicators : data.indicators,
+                    disable:false
                 });
                 this.sentenceTransition("rgba(135,206,235, 0.3)");
             }else{

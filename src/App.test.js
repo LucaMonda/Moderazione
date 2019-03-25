@@ -42,10 +42,10 @@ describe("App", () => {
   })
 
   it("calls method getSentence and sendSentence when submit",async () =>{
-    let array = ["1","2"];
+    let clickedItems = ["1","2"];
     let spy = spyOn(wrapper.instance(), 'sendSentence');
     let spy2 = spyOn(wrapper.instance(), 'getSentence');
-    await wrapper.instance().handleSubmit(array);
+    await wrapper.instance().handleSubmit(clickedItems);
     expect(spy).toHaveBeenCalled();
     expect(spy2).toHaveBeenCalled();
   })

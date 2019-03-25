@@ -32,53 +32,53 @@ class AbuseArea extends Component {
     }
 
     handleClickItem(value) {
-        let arrayItems;
+        let items;
         if(this.props.disable === false) {
-            arrayItems = this.state.items;
-            arrayItems.filter((item) => item.value === value).map((item) => item.checked = !item.checked);
-            this.setState({items: arrayItems})
+            items = this.state.items;
+            items.filter((item) => item.value === value).map((item) => item.checked = !item.checked);
+            this.setState({items: items})
         }
-        return arrayItems;
+        return items;
     }
 
     disableItems(){
-        let arrayItems = this.state.items;
-        arrayItems.forEach((item) => {
+        let items = this.state.items;
+        items.forEach((item) => {
             item.checked = false;
-        })
-        this.setState({items: arrayItems})
+        });
+        this.setState({items: items})
     }
 
     setIndicators(){
-        let arrayItems = this.state.items;
-        arrayItems.forEach(item => {
+        let items = this.state.items;
+        items.forEach(item => {
             if(this.props.indicators.includes(item.value)){
                 item.checked = true;
             }else{
                 item.checked = false;
             }
         });
-        this.setState({items: arrayItems});
-        return arrayItems;
+        this.setState({items: items});
+        return items;
     }
 
-    fillArrayCheckedItems(arrayItems){
-        let arrayClicked = [];
-        arrayItems.forEach((item) => {
+    fillArrayCheckedItems(items){
+        let clickedItems = [];
+        items.forEach((item) => {
             if (item.checked){
-                arrayClicked.push(item.value)
+                clickedItems.push(item.value)
             }
         });
-        return arrayClicked;
+        return clickedItems;
     }
 
     async handleClickButton() {
-        let arrayItems = this.state.items;
-        let arrayClicked = this.fillArrayCheckedItems(arrayItems);
+        let items = this.state.items;
+        let clickedItems = this.fillArrayCheckedItems(items);
         this.props.changeDisable();
         this.disableItems();
-        await this.props.handleSubmit(arrayClicked).then(() => this.setIndicators());
-        return arrayItems;
+        await this.props.handleSubmit(clickedItems).then(() => this.setIndicators());
+        return items;
     }
 
     render() {

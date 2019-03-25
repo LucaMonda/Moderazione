@@ -71,16 +71,16 @@ class App extends Component {
         })
     }
 
-    async handleSubmit(arrayItemsClicked) {
-        await this.sendSentence(arrayItemsClicked);
+    async handleSubmit(clickedItems) {
+        await this.sendSentence(clickedItems);
         return await this.getSentence();
     }
 
-     sendSentence(arrayItemsClicked) {
+     sendSentence(clickedItems) {
         const obj = {
             id: this.state.sentenceId,
             moderator: "stringa-fissa@da-cambiare.it",
-            categories: arrayItemsClicked
+            categories: clickedItems
         };
 
         return fetch('http://localhost:8000/sentence',{

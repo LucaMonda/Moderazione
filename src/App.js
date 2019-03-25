@@ -64,6 +64,7 @@ class App extends Component {
                 this.setState({
                     content:"ATTENZIONE! Non ci sono più frasi da moderare.",
                     disable:true,
+                    author: "",
                     indicators : []
                 });
                 this.sentenceTransition("rgba(255,0,0, 0.3)");

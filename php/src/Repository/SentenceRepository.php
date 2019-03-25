@@ -4,9 +4,9 @@ namespace App\Repository;
 
 class ModeratorRepository
 {
-
     public function saveInfo($id, $moderator, $categories){
         $obj = (object) array('moderator' => $moderator, 'categories' => $categories);
+        //TODO Problem UTF in file_get_contents.
         $fileJson = json_decode(file_get_contents('../public/sentences.json'),true);
         for ($i=0, $iMax = count($fileJson['sentences']); $i< $iMax; $i++) {
             if ($fileJson['sentences'][$i]['id'] == $id ) {
@@ -15,7 +15,7 @@ class ModeratorRepository
         }
         $newJsonString = json_encode($fileJson, JSON_PRETTY_PRINT);
         file_put_contents('../public/sentences.json', $newJsonString);
-        return $fileJson;
+        return $newJsonString;
     }
 
     public function getNextSentence(){

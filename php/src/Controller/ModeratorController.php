@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\ModeratorRepository;
+use App\Repository\SentenceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,20 +10,26 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ModeratorController extends Controller
 {
+    private $sentenceRepository;
+
+    public function __construct(SentenceRepository $sentenceRepository)
+    {
+       $this->sentenceRepository = $sentenceRepository;
+    }
+
     /**
      * @Route("/sentence", name="post-moderator", methods={"POST"})
      * @param Request $request
-     * @param ModeratorRepository $moderatorRepository
      * @return JsonResponse
      */
-    public function setSentence(Request $request, ModeratorRepository $moderatorRepository)
+    public function setSentence(Request $request)
     {
         $parametersAsArray = json_decode($request->getContent(), true);
         $id = $parametersAsArray['id'];
         $moderator = $parametersAsArray['moderator'];
         $categories = $parametersAsArray['categories'];
 
-        $moderatorRepository->saveInfo($id,$moderator,$categories);
+        $this->sentenceRepository->saveInfo($id,$moderator,$categories);
 
         return new JsonResponse([
             'result' => 'OK'
@@ -33,12 +39,11 @@ class ModeratorController extends Controller
 
     /**
      * @Route("/sentence", name="get-moderator", methods={"GET"})
-     * @param ModeratorRepository $moderatorRepository
      * @return JsonResponse
      */
-    public function getSentence(ModeratorRepository $moderatorRepository){
+    public function getSentence(){
 
-        $foundSentence = $moderatorRepository->getNextSentence();
+        $foundSentence = $this->sentenceRepository->getNextSentence();
         return new JsonResponse($foundSentence);
 
     }

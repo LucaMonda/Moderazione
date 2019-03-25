@@ -16,8 +16,8 @@ class SentenceRepositoryTest extends KernelTestCase
     {
         $this->fileSystem = new FileSystem();
         $this->num = mt_rand(1,1000);
-        $this->fileSystem->copy('tests/sentencesTest.json','tests/sentencesTest'.$this->num.'.json');
-        $this->sentenceRepository = new SentenceRepository('tests/sentencesTest'.$this->num.'.json');
+        $this->fileSystem->copy('tests/Repository/sentencesTest.json','tests/Repository/sentencesTest'.$this->num.'.json');
+        $this->sentenceRepository = new SentenceRepository('tests/Repository/sentencesTest'.$this->num.'.json');
     }
 
     public function testSaveInfo()
@@ -27,7 +27,7 @@ class SentenceRepositoryTest extends KernelTestCase
         $fileJson = json_decode($this->sentenceRepository->saveInfo('1', $email ,[0,1]),true);
 
         $this->assertEquals($fileJson['sentences'][0]['votes'][0]['moderator'], $email);
-        $this->fileSystem->remove('tests/sentencesTest'.$this->num.'.json');
+        $this->fileSystem->remove('tests/Repository/sentencesTest'.$this->num.'.json');
     }
 
     public function testGetNextSentence()
@@ -39,8 +39,6 @@ class SentenceRepositoryTest extends KernelTestCase
         $this->assertEquals($sentence['author'],'rado');
         $this->assertEquals(count($sentence['votes']),0);
         $this->assertEquals($sentence['indicators'],[0,1]);
-        $this->fileSystem->remove('tests/sentencesTest'.$this->num.'.json');
-        $this->fileSystem->remove('tests/sentencesTest'.$this->num.'.json');
-
+        $this->fileSystem->remove('tests/Repository/sentencesTest'.$this->num.'.json');
     }
 }

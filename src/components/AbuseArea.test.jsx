@@ -19,13 +19,13 @@ describe("AbuseArea", () => {
 
     beforeEach(() => {
         spyDidMount = spyOn(AbuseArea.prototype, 'componentDidMount');
-        wrapper = mount(<AbuseArea {...props}/>);
+        wrapper = shallow(<AbuseArea {...props}/>);
         wrapper.instance().disableItems();
     });
 
-    afterEach(() => {
+    /*afterEach(() => {
         wrapper.unmount();
-    });
+    });*/
 
 
     const enzyme = require("enzyme");
@@ -73,7 +73,7 @@ describe("AbuseArea", () => {
 
     it("fills array with checked items correctly",() =>{
         let items = wrapper.instance().state.items;
-        let itemsClicked = wrapper.instance().fillArrayCheckedItems(items);
+        let itemsClicked = wrapper.instance().findCheckedItems(items);
         expect(itemsClicked.length).toEqual(0);
     });
 

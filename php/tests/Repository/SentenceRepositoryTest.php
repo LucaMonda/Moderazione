@@ -23,10 +23,12 @@ class SentenceRepositoryTest extends KernelTestCase
     public function testSaveInfo()
     {
         $email = 'io@email.it';
+        $categories = [0,1];
 
-        $fileJson = json_decode($this->sentenceRepository->saveInfo('1', $email ,[0,1]),true);
+        $file = json_decode($this->sentenceRepository->saveInfo('1', $email ,$categories),true);
 
-        $this->assertEquals($fileJson['sentences'][0]['votes'][0]['moderator'], $email);
+        $this->assertEquals($file['sentences'][0]['votes'][0]['moderator'], $email);
+        $this->assertEquals($file['sentences'][0]['votes'][0]['categories'], $categories);
         $this->fileSystem->remove('tests/Repository/sentencesTest'.$this->num.'.json');
     }
 

@@ -54,7 +54,7 @@ class AbuseArea extends Component {
         this.setState({items: items});
     }
 
-    fillArrayCheckedItems(items){
+    findCheckedItems(items){
         let clickedItems = [];
         items.forEach((item) => {
             if (item.checked){
@@ -66,8 +66,8 @@ class AbuseArea extends Component {
 
     async handleClickButton() {
         let items = this.state.items;
-        let clickedItems = this.fillArrayCheckedItems(items);
-        this.props.changeDisable();
+        let clickedItems = this.findCheckedItems(items);
+        this.props.toggleDisableButton();
         this.disableItems();
         await this.props.handleSubmit(clickedItems).then(() => this.setIndicators());
     }

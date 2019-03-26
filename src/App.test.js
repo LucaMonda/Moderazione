@@ -50,11 +50,11 @@ describe("App", () => {
     expect(spy2).toHaveBeenCalled();
   })
 
-  it("changes disable value when calling changeDisable() method",() =>{
+  it("changes disable value when calling toggleDisableButton() method",() =>{
     wrapper.instance().state.disable=false;
-    wrapper.instance().changeDisable();
+    wrapper.instance().toggleDisableButton();
     expect(wrapper.instance().state.disable).toEqual(true);
-    wrapper.instance().changeDisable();
+    wrapper.instance().toggleDisableButton();
     expect(wrapper.instance().state.disable).toEqual(false);
   })
 

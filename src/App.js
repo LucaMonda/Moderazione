@@ -17,7 +17,7 @@ class App extends Component {
         this.sendSentence = this.sendSentence.bind(this);
         this.sentenceTransition = this.sentenceTransition.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.changeDisable = this.changeDisable.bind(this);
+        this.toggleDisableButton = this.toggleDisableButton.bind(this);
     }
 
     componentDidMount() {
@@ -32,7 +32,7 @@ class App extends Component {
         }, 600);
     }
 
-    changeDisable(){
+    toggleDisableButton(){
         this.setState({
             disable:!this.state.disable
         });
@@ -114,7 +114,7 @@ class App extends Component {
                   <div id="text" className="sentence">{this.state.content}</div>
               </div>
               <AbuseArea handleSubmit={this.handleSubmit} disable={this.state.disable}
-              indicators = {this.state.indicators} changeDisable={this.changeDisable}/>
+              indicators = {this.state.indicators} toggleDisableButton={this.toggleDisableButton}/>
           </div>
         );
   }

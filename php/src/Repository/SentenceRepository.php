@@ -6,6 +6,7 @@ class SentenceRepository
 {
 
     private $path;
+    private $foundSentence = [];
 
     public function __construct($path)
     {
@@ -13,23 +14,22 @@ class SentenceRepository
     }
 
     public function saveInfo($id, $moderator, $categories){
-        $obj = (object) array('moderator' => $moderator, 'categories' => $categories);
-        $fileJson = json_decode(file_get_contents($this->path),true);
-        for ($i=0, $iMax = count($fileJson['sentences']); $i< $iMax; $i++) {
-            if ($fileJson['sentences'][$i]['id'] == $id ) {
-                $fileJson['sentences'][$i]['votes'][] = $obj;
-            }
-        }
-        $newJsonString = json_encode($fileJson, JSON_PRETTY_PRINT);
-        file_put_contents($this->path, $newJsonString);
-        return $newJsonString;
+        $data = (object) array('moderator' => $moderator, 'categories' => $categories);
+        $file = json_decode(file_get_contents($this->path),true);
+        $file = $this->overwriteFile($file, $id, $data);
+        $newFile = $this->encodeAndSaveFile($file);
+        return $newFile;
     }
 
     public function getNextSentence(){
         $email = 'stringa-fissa@da-cambiare.it';
         $fileJson = json_decode(file_get_contents($this->path),true);
-        $foundSentence = [];
-        foreach($fileJson['sentences'] as $sentence){
+        $this->findNextSentence($fileJson, $email);
+        return $this->foundSentence;
+    }
+
+    private function findNextSentence($file, $email){
+        foreach($file['sentences'] as $sentence){
             $finded = false;
             foreach($sentence['votes'] as $moderatorVote){
                 if($moderatorVote['moderator']===$email){
@@ -38,10 +38,24 @@ class SentenceRepository
                 }
             }
             if(!$finded){
-                $foundSentence = $sentence;
+                $this->foundSentence = $sentence;
                 break;
             }
         }
-        return $foundSentence;
+    }
+
+    private function overwriteFile($file, $id, $data){
+        for ($i=0, $iMax = count($file['sentences']); $i< $iMax; $i++) {
+            if ($file['sentences'][$i]['id'] == $id ) {
+                $file['sentences'][$i]['votes'][] = $data;
+            }
+        }
+        return $file;
+    }
+
+    private function encodeAndSaveFile($file){
+        $newfile = json_encode($file, JSON_PRETTY_PRINT);
+        file_put_contents($this->path, $newfile);
+        return $newfile;
     }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {shallow,mount} from 'enzyme';
 import AbuseArea from "./AbuseArea";
 
-
 describe("AbuseArea", () => {
+
     let props = {
         disable:null,
         sendSentence:  () => {
@@ -19,8 +19,12 @@ describe("AbuseArea", () => {
 
     beforeEach(() => {
         spyDidMount = spyOn(AbuseArea.prototype, 'componentDidMount');
-        wrapper = shallow(<AbuseArea {...props}/>);
+        wrapper = mount(<AbuseArea {...props}/>);
         wrapper.instance().disableItems();
+    });
+
+    afterEach(() => {
+        wrapper.unmount();
     });
 
 
@@ -35,7 +39,6 @@ describe("AbuseArea", () => {
         wrapper.setProps({ disable: true });
         wrapper.instance().handleClickItem(0);
         expect(wrapper.instance().state.items[0].checked).toEqual(true);
-
         });
 
     it("renders button correctly", () =>{

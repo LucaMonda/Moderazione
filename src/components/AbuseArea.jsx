@@ -2,19 +2,19 @@ import React, {Component} from 'react';
 import AbuseItem from './AbuseItem.jsx';
 import '../styles/AbuseArea.css';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import {Items} from "../configuration/item-configuration";
-
+const clone = require('lodash/clone');
 
 class AbuseArea extends Component {
 
     constructor(props) {
         super(props);
+        const variable = require("../configuration/item-configuration");
         this.handleClickButton = this.handleClickButton.bind(this);
         this.handleClickItem = this.handleClickItem.bind(this);
         this.setIndicators = this.setIndicators.bind(this);
         this.disableItems = this.disableItems.bind(this);
         this.state = {
-            items: Items
+            items: clone(variable.Items)
         };
     }
 
@@ -28,17 +28,14 @@ class AbuseArea extends Component {
         }else{
             this.handleClickItem(keyPressed - 1)
         }
-        return keyPressed;
     }
 
     handleClickItem(value) {
-        let items;
-        if(this.props.disable === false) {
-            items = this.state.items;
+        let items  = this.state.items;
+        if(!this.props.disable) {
             items.filter((item) => item.value === value).map((item) => item.checked = !item.checked);
             this.setState({items: items})
         }
-        return items;
     }
 
     disableItems(){
@@ -52,14 +49,9 @@ class AbuseArea extends Component {
     setIndicators(){
         let items = this.state.items;
         items.forEach(item => {
-            if(this.props.indicators.includes(item.value)){
-                item.checked = true;
-            }else{
-                item.checked = false;
-            }
+            item.checked = this.props.indicators.includes(item.value);
         });
         this.setState({items: items});
-        return items;
     }
 
     fillArrayCheckedItems(items){
@@ -78,7 +70,6 @@ class AbuseArea extends Component {
         this.props.changeDisable();
         this.disableItems();
         await this.props.handleSubmit(clickedItems).then(() => this.setIndicators());
-        return items;
     }
 
     render() {

@@ -12,8 +12,6 @@ class App extends Component {
             content: "",
             indicators: "",
             disable: false,
-            filledIndicators : false
-
         };
         this.getSentence = this.getSentence.bind(this);
         this.sendSentence = this.sendSentence.bind(this);
@@ -32,7 +30,6 @@ class App extends Component {
         setTimeout(function() {
             sentence.style.backgroundColor = 'white';
         }, 600);
-        return sentence;
     }
 
     changeDisable(){

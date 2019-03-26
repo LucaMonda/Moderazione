@@ -24,9 +24,11 @@
         "symfony/twig-bundle": "3.4.*",
         "symfony/validator": "3.4.*",
         "symfony/web-link": "3.4.*",
-        "symfony/yaml": "3.4.*"
+        "symfony/yaml": "3.4.*",
+        "elasticsearch/elasticsearch": "~6.0"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",

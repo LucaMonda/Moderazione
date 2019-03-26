@@ -4,44 +4,73 @@ volumes:
 
 services:
   php:
+    container_name: php
     build:
       context: ./
       dockerfile: ./docker/php/Dockerfile
     volumes:
       - ./php:/var/www:cached
-    environment:
-      - DATABASE_URL=mysql://root:root@mysql:3306/moderation
+    #environment:
+    #  - DATABASE_URL=mysql://root:root@mysql:3306/moderation
     ports:
       - 8000:8000
     command: ["php", "bin/console", "server:run", "0.0.0.0:8000"]
     networks:
-      - web
+      - esnet
 
-  mysql:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
-      - 3306:3306
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.6.2
+    container_name: elasticsearch
     environment:
-       MYSQL_ROOT_PASSWORD: root
-       MYSQL_DATABASE: moderation
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
     networks:
-      - web
+      - esnet
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+  elasticsearch2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.6.2
+    container_name: elasticsearch2
     environment:
-      PMA_PORT: 3306
-      PMA_HOST: mysql
-      PMA_USER: root
-      PMA_PASSWORD: root
+      - cluster.name=elasticsearch
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.zen.ping.unicast.hosts=elasticsearch"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata2:/usr/share/elasticsearch/data
     ports:
-      - "8080:80"
-    restart: always
+      - 9300:9300
     networks:
-      - web
+      - esnet
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.6.2
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    networks:
+      - esnet
+
+volumes:
+  esdata1:
+    driver: local
+  esdata2:
+    driver: local
+
 
 networks:
-  web:
-    driver: bridge
+  esnet:

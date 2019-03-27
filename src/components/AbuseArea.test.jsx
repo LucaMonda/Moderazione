@@ -20,12 +20,7 @@ describe("AbuseArea", () => {
     beforeEach(() => {
         spyDidMount = spyOn(AbuseArea.prototype, 'componentDidMount');
         wrapper = shallow(<AbuseArea {...props}/>);
-        wrapper.instance().disableItems();
     });
-
-    /*afterEach(() => {
-        wrapper.unmount();
-    });*/
 
 
     const enzyme = require("enzyme");

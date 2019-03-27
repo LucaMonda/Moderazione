@@ -2,19 +2,46 @@ import React, {Component} from 'react';
 import AbuseItem from './AbuseItem.jsx';
 import '../styles/AbuseArea.css';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-const clone = require('lodash/clone');
 
 class AbuseArea extends Component {
 
     constructor(props) {
         super(props);
-        const variable = require("../configuration/item-configuration");
         this.handleClickButton = this.handleClickButton.bind(this);
         this.handleClickItem = this.handleClickItem.bind(this);
         this.setIndicators = this.setIndicators.bind(this);
         this.disableItems = this.disableItems.bind(this);
         this.state = {
-            items: clone(variable.Items)
+            items: [
+                {
+                    value: 0,
+                    title: 'OSCENO',
+                    desc: 'Offese, insulti, attacchi personali, ecc.',
+                    imageGrey: "../images/osceno/grey.svg",
+                    checked: false
+                },
+                {
+                    value: 1,
+                    title: 'MINACCIA',
+                    desc: 'Violenza, minacce, provocazioni, ecc.',
+                    imageGrey: "../images/minaccia/grey.svg",
+                    checked: false
+                },
+                {
+                    value: 2,
+                    title: 'INSULTO',
+                    desc: 'Parolacce, riferimenti al sesso, ecc.',
+                    imageGrey: "../images/insulto/grey.svg",
+                    checked: false
+                },
+                {
+                    value: 3,
+                    title: 'RAZZIALE',
+                    desc: 'Riferimenti ad etnie, luoghi comuni regionali, ecc.',
+                    imageGrey: "../images/razziale/grey.svg",
+                    checked: false
+                }
+            ]
         };
     }
 

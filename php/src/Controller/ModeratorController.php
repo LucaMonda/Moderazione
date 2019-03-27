@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\SentenceRepository;
+use App\Repository\ModerationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +12,7 @@ class ModeratorController extends Controller
 {
     private $sentenceRepository;
 
-    public function __construct(SentenceRepository $sentenceRepository)
+    public function __construct(ModerationRepository $sentenceRepository)
     {
        $this->sentenceRepository = $sentenceRepository;
     }

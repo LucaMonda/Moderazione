@@ -2,60 +2,49 @@
 
 namespace App\Repository;
 
-class SentenceRepository
+use App\Entity\Sentence;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Bridge\Doctrine\RegistryInterface;
+
+/**
+ * @method Sentence|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Sentence|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Sentence[]    findAll()
+ * @method Sentence[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class SentenceRepository extends ServiceEntityRepository
 {
-
-    private $path;
-    private $foundSentence = [];
-
-    public function __construct($path)
+    public function __construct(RegistryInterface $registry)
     {
-        $this->path = $path;
+        parent::__construct($registry, Sentence::class);
     }
 
-    public function saveInfo($id, $moderator, $categories){
-        $data = (object) array('moderator' => $moderator, 'categories' => $categories);
-        $file = json_decode(file_get_contents($this->path),true);
-        $file = $this->overwriteFile($file, $id, $data);
-        $newFile = $this->encodeAndSaveFile($file);
-        return $newFile;
+    // /**
+    //  * @return Sentence[] Returns an array of Sentence objects
+    //  */
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('s.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
     }
+    */
 
-    public function getNextSentence(){
-        $email = 'stringa-fissa@da-cambiare.it';
-        $fileJson = json_decode(file_get_contents($this->path),true);
-        $this->findNextSentence($fileJson, $email);
-        return $this->foundSentence;
+    /*
+    public function findOneBySomeField($value): ?Sentence
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
-
-    private function findNextSentence($file, $email){
-        foreach($file['sentences'] as $sentence){
-            $finded = false;
-            foreach($sentence['votes'] as $moderatorVote){
-                if($moderatorVote['moderator']===$email){
-                    $finded = true;
-                    break;
-                }
-            }
-            if(!$finded){
-                $this->foundSentence = $sentence;
-                break;
-            }
-        }
-    }
-
-    private function overwriteFile($file, $id, $data){
-        for ($i=0, $iMax = count($file['sentences']); $i< $iMax; $i++) {
-            if ($file['sentences'][$i]['id'] == $id ) {
-                $file['sentences'][$i]['votes'][] = $data;
-            }
-        }
-        return $file;
-    }
-
-    private function encodeAndSaveFile($file){
-        $newfile = json_encode($file, JSON_PRETTY_PRINT);
-        file_put_contents($this->path, $newfile);
-        return $newfile;
-    }
+    */
 }

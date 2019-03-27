@@ -2,7 +2,7 @@
 
 namespace App\php\tests\Repository;
 
-use App\Repository\SentenceRepository;
+use App\Repository\ModerationRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -17,7 +17,7 @@ class SentenceRepositoryTest extends KernelTestCase
         $this->fileSystem = new FileSystem();
         $this->num = mt_rand(1,1000);
         $this->fileSystem->copy('tests/Repository/sentencesTest.json','tests/Repository/sentencesTest'.$this->num.'.json');
-        $this->sentenceRepository = new SentenceRepository('tests/Repository/sentencesTest'.$this->num.'.json');
+        $this->sentenceRepository = new ModerationRepository('tests/Repository/sentencesTest'.$this->num.'.json');
     }
 
     public function testSaveInfo()

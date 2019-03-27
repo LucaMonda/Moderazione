@@ -24,13 +24,13 @@ class Moderator
     private $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Sentence", mappedBy="votes")
+     * @ORM\OneToMany(targetEntity="App\Entity\SentenceModerator", mappedBy="moderator")
      */
-    private $votes;
+    private $sentenceModerators;
 
     public function __construct()
     {
-        $this->votes = new ArrayCollection();
+        $this->sentenceModerators = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,28 +51,31 @@ class Moderator
     }
 
     /**
-     * @return Collection|Sentence[]
+     * @return Collection|SentenceModerator[]
      */
-    public function getVotes(): Collection
+    public function getSentenceModerators(): Collection
     {
-        return $this->votes;
+        return $this->sentenceModerators;
     }
 
-    public function addVote(Sentence $vote): self
+    public function addSentenceModerator(SentenceModerator $sentenceModerator): self
     {
-        if (!$this->votes->contains($vote)) {
-            $this->votes[] = $vote;
-            $vote->addVote($this);
+        if (!$this->sentenceModerators->contains($sentenceModerator)) {
+            $this->sentenceModerators[] = $sentenceModerator;
+            $sentenceModerator->setModerator($this);
         }
 
         return $this;
     }
 
-    public function removeVote(Sentence $vote): self
+    public function removeSentenceModerator(SentenceModerator $sentenceModerator): self
     {
-        if ($this->votes->contains($vote)) {
-            $this->votes->removeElement($vote);
-            $vote->removeVote($this);
+        if ($this->sentenceModerators->contains($sentenceModerator)) {
+            $this->sentenceModerators->removeElement($sentenceModerator);
+            // set the owning side to null (unless already changed)
+            if ($sentenceModerator->getModerator() === $this) {
+                $sentenceModerator->setModerator(null);
+            }
         }
 
         return $this;

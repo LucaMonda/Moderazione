@@ -34,13 +34,13 @@ class Sentence
     private $indicators = [];
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Moderator", inversedBy="votes")
+     * @ORM\OneToMany(targetEntity="App\Entity\SentenceModerator", mappedBy="sentence")
      */
-    private $votes;
+    private $sentenceModerators;
 
     public function __construct()
     {
-        $this->votes = new ArrayCollection();
+        $this->sentenceModerators = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,26 +85,31 @@ class Sentence
     }
 
     /**
-     * @return Collection|Moderator[]
+     * @return Collection|SentenceModerator[]
      */
-    public function getVotes(): Collection
+    public function getSentenceModerators(): Collection
     {
-        return $this->votes;
+        return $this->sentenceModerators;
     }
 
-    public function addVote(Moderator $vote): self
+    public function addSentenceModerator(SentenceModerator $sentenceModerator): self
     {
-        if (!$this->votes->contains($vote)) {
-            $this->votes[] = $vote;
+        if (!$this->sentenceModerators->contains($sentenceModerator)) {
+            $this->sentenceModerators[] = $sentenceModerator;
+            $sentenceModerator->setSentence($this);
         }
 
         return $this;
     }
 
-    public function removeVote(Moderator $vote): self
+    public function removeSentenceModerator(SentenceModerator $sentenceModerator): self
     {
-        if ($this->votes->contains($vote)) {
-            $this->votes->removeElement($vote);
+        if ($this->sentenceModerators->contains($sentenceModerator)) {
+            $this->sentenceModerators->removeElement($sentenceModerator);
+            // set the owning side to null (unless already changed)
+            if ($sentenceModerator->getSentence() === $this) {
+                $sentenceModerator->setSentence(null);
+            }
         }
 
         return $this;

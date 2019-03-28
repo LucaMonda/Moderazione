@@ -38,12 +38,12 @@ class SentenceModeratorRepository extends ServiceEntityRepository
         return $query->getSingleResult();
     }
 
-    public function insertVote($sentence, $votes, $moderator)
+    public function insertVote($sentence, $votes, $moderator): SentenceModerator
     {
         $sentenceModerator = new SentenceModerator($sentence, $votes, $moderator);
         $this->manager->persist($sentenceModerator);
         $this->manager->flush();
-
+        return $sentenceModerator;
     }
 
     // /**

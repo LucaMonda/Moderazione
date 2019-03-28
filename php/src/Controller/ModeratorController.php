@@ -7,6 +7,7 @@ use App\Entity\Sentence;
 use App\Entity\SentenceModerator;
 use App\Repository\SentenceModeratorRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -62,7 +63,9 @@ class ModeratorController extends Controller
         $repository = $em->getRepository(SentenceModerator::class);
         try {
             $sentence = $repository->findNextSentence($moderator->getId());
-        }catch(NoResultException $e){
+        }catch(NoResultException $e) {
+            return new JsonResponse([]);
+        }catch(NonUniqueResultException $nue){
             return new JsonResponse([]);
         }
 

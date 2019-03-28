@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Moderator;
 use App\Entity\Sentence;
 use App\Entity\SentenceModerator;
-use App\Repository\SentenceModeratorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;

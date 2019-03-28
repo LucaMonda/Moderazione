@@ -22,17 +22,17 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function createSentences($i){
-        $sentence = new Sentence();
-        $sentence->setContent('Se parli così è perchè non capisci un cazzo come tutti quelli che fanno lavoro ' . $i . ' !');
-        $sentence->setAuthor('author ' .$i);
-        $sentence->setIndicators([$i]);
-        return $sentence;
+    private function createSentences($i): Sentence
+    {
+        $content = 'Se parli così è perchè non capisci un cazzo come tutti quelli che fanno lavoro ' . $i . ' !';
+        $author = 'author ' .$i;
+        $indicators = [$i];
+        return new Sentence($content,$author,$indicators);
     }
 
-    private function createModerator($i){
-        $moderator = new Moderator();
-        $moderator->setEmail('moderator'.$i. '@gmail.com');
-        return $moderator;
+    private function createModerator($i): Moderator
+    {
+        $email = 'moderator'.$i. '@gmail.com';
+        return new Moderator($email);
     }
 }

@@ -38,8 +38,11 @@ class Sentence
      */
     private $sentenceModerators;
 
-    public function __construct()
+    public function __construct($content,$author, $indicators)
     {
+        $this->setContent($content);
+        $this->setAuthor($author);
+        $this->setIndicators($indicators);
         $this->sentenceModerators = new ArrayCollection();
     }
 

@@ -33,6 +33,13 @@ class SentenceModerator
      */
     private $votes = [];
 
+    public function __construct($sentence,$votes,$moderator)
+    {
+        $this->setSentence($sentence);
+        $this->setVotes($votes);
+        $this->setModerator($moderator);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

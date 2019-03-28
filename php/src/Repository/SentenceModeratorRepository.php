@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\SentenceModerator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -14,9 +15,35 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class SentenceModeratorRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    private $manager;
+
+    public function __construct(RegistryInterface $registry,ObjectManager $manager)
     {
         parent::__construct($registry, SentenceModerator::class);
+        $this->manager=$manager;
+    }
+
+    public function findNextSentence($id)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT s
+                 FROM App\Entity\Sentence s
+                 WHERE NOT EXISTS (
+                 SELECT IDENTITY(sm.sentence)
+                 FROM App\Entity\SentenceModerator sm
+                 WHERE IDENTITY(sm.moderator)=:id
+                 AND s.id = IDENTITY(sm.sentence))')->setParameter('id',$id) ->setMaxResults(1);
+        return $query->getSingleResult();
+    }
+
+    public function insertVote($sentence, $votes, $moderator)
+    {
+        $sentenceModerator = new SentenceModerator($sentence, $votes, $moderator);
+        $this->manager->persist($sentenceModerator);
+        $this->manager->flush();
+
     }
 
     // /**

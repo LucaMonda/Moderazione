@@ -28,8 +28,9 @@ class Moderator
      */
     private $sentenceModerators;
 
-    public function __construct()
+    public function __construct($email)
     {
+        $this->setEmail($email);
         $this->sentenceModerators = new ArrayCollection();
     }
 

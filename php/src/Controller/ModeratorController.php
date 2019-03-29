@@ -54,7 +54,7 @@ class ModeratorController extends Controller
      */
     public function getSentence(EntityManagerInterface $em): JsonResponse
     {
-        $emailModerator = 'moderator0@gmail.com';
+        $emailModerator = 'moderator1@gmail.com';
 
         $repositoryModerator = $em->getRepository(Moderator::class);
         $moderator = $repositoryModerator->findOneBy(['email'=> $emailModerator ]);

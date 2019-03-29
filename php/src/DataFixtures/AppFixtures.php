@@ -11,8 +11,8 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        for($i = 0;$i<5; $i++){
-            if($i===0){
+        for($i = 1;$i<6; $i++){
+            if($i===1){
                 $moderator = $this->createModerator($i);
             }
             $sentence = $this->createSentences($i);

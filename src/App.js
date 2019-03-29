@@ -77,7 +77,7 @@ class App extends Component {
      sendSentence(clickedItems) {
         const obj = {
             id: this.state.sentenceId,
-            moderator: "moderator0@gmail.com",
+            moderator: "moderator1@gmail.com",
             categories: clickedItems
         };
 

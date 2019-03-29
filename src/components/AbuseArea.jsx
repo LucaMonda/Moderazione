@@ -14,28 +14,28 @@ class AbuseArea extends Component {
         this.state = {
             items: [
                 {
-                    value: 0,
+                    value: 1,
                     title: 'OSCENO',
                     desc: 'Offese, insulti, attacchi personali, ecc.',
                     imageGrey: "../images/osceno/grey.svg",
                     checked: false
                 },
                 {
-                    value: 1,
+                    value: 2,
                     title: 'MINACCIA',
                     desc: 'Violenza, minacce, provocazioni, ecc.',
                     imageGrey: "../images/minaccia/grey.svg",
                     checked: false
                 },
                 {
-                    value: 2,
+                    value: 3,
                     title: 'INSULTO',
                     desc: 'Parolacce, riferimenti al sesso, ecc.',
                     imageGrey: "../images/insulto/grey.svg",
                     checked: false
                 },
                 {
-                    value: 3,
+                    value: 4,
                     title: 'RAZZIALE',
                     desc: 'Riferimenti ad etnie, luoghi comuni regionali, ecc.',
                     imageGrey: "../images/razziale/grey.svg",
@@ -53,7 +53,7 @@ class AbuseArea extends Component {
         if(keyPressed==="enter") {
             this.handleClickButton();
         }else{
-            this.handleClickItem(keyPressed - 1)
+            this.handleClickItem(keyPressed)
         }
     }
 
@@ -117,7 +117,7 @@ class AbuseArea extends Component {
                 </div>
                 <KeyboardEventHandler
                     handleKeys={['1', '2', '3', '4', "enter"]}
-                    onKeyEvent={(key) => this.handleKeyboardEvent(key)}
+                    onKeyEvent={(key) => this.handleKeyboardEvent(parseInt(key))}
                     isDisabled={this.props.disable}
                     />
                 <div className="button-container">

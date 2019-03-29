@@ -14,22 +14,54 @@ You will also see any lint errors in the console.
 
 ### `docker-compose up -d`
 
-Creates 3 different containers that contain respectively:
+Creates 3 different containers that includes respectively:
 
 - Php
 - Mysql
 - PhpMyAdmin
 
+## Configure Php
+Run 
 
-## container Php
-Open http://localhost:8000 to view it in the browser.
+```bash 
+docker ps
+``` 
 
-## container PhpMyAdmin
+```bash
+CONTAINER ID        IMAGE                               
+e85159e1149c        react-app_php
+```
+and copy the "CONTAINER ID" of the container named "react_app_php" (In this case "e85159e1149c")
+
+Enter in the container by running: 
+
+```bash
+docker exec -it CONTAINER_ID /bin/sh
+```
+Remember to paste and overwrite "CONTAINER_ID".
+
+Inside the container run:
+
+```bash
+composer install
+```
+
+After that run:
+
+```bash
+./start.sh
+```
+
+Open http://localhost:3000 and if the page is loading, you configured correctly the php container.
+
+## Container PhpMyAdmin
 Open http://localhost:8080 to view it in the browser.
 
 ## Configure Keyboard's Button
 In AbuseArea.jsx, in the render method, there is a component called "KeyboardEventHandler".
-Modify property "handleKeys" to handle keyboard's button.
+
+Modify property "handleKeys" to handle keyboard's button
+
 In the method "handleKeyboardEvent", separate the keys according to their scope.
 - if => clickButton
 - else => clickItem

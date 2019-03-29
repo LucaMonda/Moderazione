@@ -29,7 +29,7 @@ docker ps
 
 ```bash
 CONTAINER ID        IMAGE                               
-e85159e1149c        react-app_php
+e85159e1149c        react-app_php_1
 ```
 and copy the "CONTAINER ID" of the container named "react_app_php" (In this case "e85159e1149c")
 

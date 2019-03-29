@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 class SentenceModeratorRepositoryTest extends KernelTestCase
 {
     private $entityManager;
-    private $emailModerator = 'moderator0@gmail.com';
+    private $emailModerator = 'moderator1@gmail.com';
     private $moderatorRepository;
     private $sentenceRepository;
     private $sentenceModeratorRepository;
@@ -32,14 +32,14 @@ class SentenceModeratorRepositoryTest extends KernelTestCase
         $moderator = $this->moderatorRepository->findOneBy(['email' => $this->emailModerator]);
         $sentence = $this->sentenceModeratorRepository->findNextSentence($moderator->getId());
 
-        $this->assertEquals('author 0', $sentence->getAuthor());
-        $this->assertEquals([0], $sentence->getIndicators());
-        $this->assertEquals('Se parli così è perchè non capisci un cazzo come tutti quelli che fanno lavoro 0 !', $sentence->getContent());
+        $this->assertEquals('author 1', $sentence->getAuthor());
+        $this->assertEquals([1], $sentence->getIndicators());
+        $this->assertEquals('Se parli così è perchè non capisci un cazzo come tutti quelli che fanno lavoro 1 !', $sentence->getContent());
     }
 
     public function testInsertVote()
     {
-        $author = 'author 0';
+        $author = 'author 1';
         $votes = [0,1];
 
         $sentence = $this->sentenceRepository->findOneBy(['author' => $author]);

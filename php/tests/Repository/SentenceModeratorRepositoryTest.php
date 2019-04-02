@@ -37,7 +37,7 @@ class SentenceModeratorRepositoryTest extends KernelTestCase
         $this->assertEquals('Se parli così è perchè non capisci un cazzo come tutti quelli che fanno lavoro 1 !', $sentence->getContent());
     }
 
-    public function testInsertVote()
+    public function testInsertVote(): void
     {
         $author = 'author 1';
         $votes = [0,1];

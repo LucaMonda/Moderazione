@@ -33,26 +33,27 @@ e85159e1149c        react-app_php_1
 ```
 and copy the "CONTAINER ID" of the container named "react_app_php" (In this case "e85159e1149c")
 
-Enter in the container by running: 
+Install composer inside container by running:
 
 ```bash
-docker exec -it CONTAINER_ID /bin/sh
+docker run -it CONTAINER_ID composer install
 ```
 Remember to paste and overwrite "CONTAINER_ID".
-
-Inside the container run:
-
-```bash
-composer install
-```
 
 After that run:
 
 ```bash
-./start.sh
+docker run -it CONTAINER_ID /var/www/start.sh
 ```
 
+this command let you update schema and add fixtures to database.
+
 Open http://localhost:3000 and if the page is loading, you configured correctly the php container.
+
+Run test by running:
+```bash
+ docker run -it CONTAINER_ID /var/www/bin/phpunit
+ ```
 
 ## Container PhpMyAdmin
 Open http://localhost:8080 to view it in the browser.

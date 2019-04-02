@@ -1,15 +1,27 @@
-FROM php:7.2-fpm-alpine
-RUN apk update && \
-    apk add zlib-dev mysql-client
-RUN docker-php-ext-configure pdo_mysql --with-pdo-mysql
-RUN docker-php-ext-install pdo_mysql
-RUN docker-php-ext-configure zip
-RUN docker-php-ext-install zip
-RUN curl -sS https://getcomposer.org/installer | php
-RUN mv composer.phar /usr/local/bin/composer
-RUN chmod a+x /usr/local/bin/composer
-RUN adduser ideato -D
-USER ideato
-#COPY ./php /var/www
-#RUN cd /var/www && /usr/local/bin/composer install
+FROM php:7.2-apache
+
+RUN a2enmod headers rewrite
+
+# set correct document root
+ENV APACHE_DOCUMENT_ROOT /var/www/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# set timezone
+RUN printf '[PHP]\ndate.timezone = "Europe/Rome"\n' > /usr/local/etc/php/conf.d/timezone.ini
+
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+RUN echo "Header set Access-Control-Allow-Origin '*'" >> /etc/apache2/apache2.conf
+
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+
+# setup composer
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git unzip zlib1g-dev
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# install php extension
+RUN docker-php-ext-install -j$(nproc) zip pdo pdo_mysql sockets
+
 WORKDIR /var/www

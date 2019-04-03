@@ -13,7 +13,7 @@ services:
       - DATABASE_URL=mysql://root:root@mysql:3306/moderation
     ports:
       - 8000:8000
-    command: ["php", "bin/console", "server:run", "0.0.0.0:8000"]
+    #command: ["php", "bin/console", "server:run", "0.0.0.0:8000"]
     networks:
       - web
 

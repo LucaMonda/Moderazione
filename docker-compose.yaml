@@ -32,18 +32,18 @@ services:
     networks:
       - web
 
-      #phpmyadmin:
-      # image: phpmyadmin/phpmyadmin
-      #environment:
-      # PMA_PORT: 3306
-      # PMA_HOST: mysql
-      # PMA_USER: root
-      # PMA_PASSWORD: root
-    #ports:
-    #  - "8080:80"
-    #restart: always
-    #networks:
-    #  - web
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_PORT: 3306
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8080:80"
+    restart: always
+    networks:
+      - web
 
 networks:
   web:

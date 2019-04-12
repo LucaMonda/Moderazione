@@ -12,9 +12,8 @@ RUN printf '[PHP]\ndate.timezone = "Europe/Rome"\n' > /usr/local/etc/php/conf.d/
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# set cors
-RUN echo "Header set Access-Control-Allow-Origin '*'" >> /etc/apache2/apache2.conf
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY apache2.conf /etc/apache2/apache2.conf
 
 # setup composer
 RUN apt-get update && \

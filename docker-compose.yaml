@@ -19,6 +19,21 @@ services:
     networks:
       - web
 
+  node:
+    container_name: moderazione_app
+    image: "node:8"
+    user: "node"
+    working_dir: /var/www
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./node:/var/www:cached
+    ports:
+      - 3000:3000
+    command: "npm start"
+    networks:
+      - web
+
   mysql:
     image: mysql:5.7
     container_name: moderazione_mysql
@@ -34,6 +49,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    container_name: moderazione_phpmyadmin
     environment:
       PMA_PORT: 3306
       PMA_HOST: mysql

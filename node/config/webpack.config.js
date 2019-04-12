@@ -428,8 +428,7 @@ module.exports = function(webpackEnv) {
                   sourceMap: isEnvProduction
                     ? shouldUseSourceMap
                     : isEnvDevelopment,
-                },
-                'sass-loader'
+                }
               ),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -449,8 +448,7 @@ module.exports = function(webpackEnv) {
                     : isEnvDevelopment,
                   modules: true,
                   getLocalIdent: getCSSModuleLocalIdent,
-                },
-                'sass-loader'
+                }
               ),
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.

@@ -39,7 +39,7 @@ Open http://localhost:3000 and if the page is loading, you configured correctly 
 
 Run test by running:
 ```bash
- docker run -it CONTAINER_ID bin/phpunit
+ ./testphp.sh
  ```
 
 ## Container PhpMyAdmin
@@ -50,7 +50,7 @@ Open http://localhost:3000 to view it in the browser.
 
 Run test by running:
 ```bash
- docker run -it CONTAINER_ID npm run test
+./testreact.sh
  ```
  Where CONTAINER_ID is the ID of the container "moderazione_app"
 

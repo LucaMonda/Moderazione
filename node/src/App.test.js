@@ -78,7 +78,7 @@ describe("App", () => {
     wrapper.instance().getSentence();
 
     process.nextTick(() => {
-      expect(wrapper.instance().state.sentenceId).toEqual("1");
+      expect(wrapper.instance().state.id).toEqual("1");
       expect(wrapper.instance().state.author).toEqual("rado");
       expect(wrapper.instance().state.content)
           .toEqual("Se parli così è perchè non capisci un cazzo come tutti i ginecologi!");

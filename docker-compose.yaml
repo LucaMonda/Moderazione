@@ -19,6 +19,21 @@ services:
     networks:
       - web
 
+  apache:
+    build:
+      context: ./docker/apache
+      dockerfile: ./Dockerfile
+    container_name: moderazione_apache
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./php:/var/www:cached
+
   node:
     container_name: moderazione_app
     image: "node:8"
@@ -56,7 +71,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: root
     ports:
-      - "8080:80"
+      - "9000:80"
     restart: always
     networks:
       - web

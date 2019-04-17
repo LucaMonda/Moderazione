@@ -39,7 +39,7 @@ class App extends Component {
     }
 
      getSentence(){
-        return fetch('http://localhost:8000/sentence',{
+        return fetch('http://localhost:8080/index.php/sentence',{
             mode: 'cors',
             headers : {
                 'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ class App extends Component {
             categories: clickedItems
         };
 
-        return fetch('http://localhost:8000/sentence',{
+        return fetch('http://localhost:8080/index.php/sentence',{
             method: "POST",
             mode: "cors",
             headers: {

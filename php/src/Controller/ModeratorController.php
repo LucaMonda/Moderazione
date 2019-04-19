@@ -56,12 +56,9 @@ class ModeratorController extends Controller
     {
         $emailModerator = 'moderator1@gmail.com';
 
-        $repositoryModerator = $em->getRepository(Moderator::class);
-        $moderator = $repositoryModerator->findOneBy(['email'=> $emailModerator ]);
-
         $repository = $em->getRepository(SentenceModerator::class);
         try {
-            $sentence = $repository->findNextSentence($moderator->getId());
+            $sentence = $repository->findNextSentence($emailModerator);
         }catch(NoResultException $e) {
             return new JsonResponse([]);
         }catch(NonUniqueResultException $nue){

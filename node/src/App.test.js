@@ -16,7 +16,7 @@ describe("App", () => {
 
   it("calls method for get new sentence when mounted",() =>{
       let wrapper = mount(<App/>);
-      let spy = spyOn(wrapper.instance(), 'getSentence');
+      let spy = spyOn(wrapper.instance().state.sentence, 'getSentence');
       wrapper.instance().componentDidMount();
       expect(spy).toHaveBeenCalled();
   });
@@ -43,8 +43,8 @@ describe("App", () => {
 
   it("calls method getSentence and sendSentence when submit",async () =>{
     let clickedItems = ["1","2"];
-    let spy = spyOn(wrapper.instance(), 'sendSentence');
-    let spy2 = spyOn(wrapper.instance(), 'getSentence');
+    let spy = spyOn(wrapper.instance().state.sentence, 'sendSentence');
+    let spy2 = spyOn(wrapper.instance().state.sentence, 'getSentence');
     await wrapper.instance().handleSubmit(clickedItems);
     expect(spy).toHaveBeenCalled();
     expect(spy2).toHaveBeenCalled();
@@ -69,15 +69,17 @@ describe("App", () => {
         1
       ]
     };
+
     const mockJsonPromise = Promise.resolve(mockSuccessResponse);
     const mockFetchPromise = Promise.resolve({
       json: () => mockJsonPromise,
     });
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
-
-    wrapper.instance().getSentence();
+    let spy = spyOn(wrapper.instance().state.sentence, 'transition');
+    wrapper.instance().state.sentence.getSentence(wrapper.instance().updateStateAfterGetSentence);
 
     process.nextTick(() => {
+      expect(spy).toHaveBeenCalled();
       expect(wrapper.instance().state.id).toEqual("1");
       expect(wrapper.instance().state.author).toEqual("rado");
       expect(wrapper.instance().state.content)

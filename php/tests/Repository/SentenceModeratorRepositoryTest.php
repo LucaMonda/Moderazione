@@ -30,14 +30,14 @@ class SentenceModeratorRepositoryTest extends KernelTestCase
     public function testFindNextSentence(): void
     {
         $moderator = $this->moderatorRepository->findOneBy(['email' => $this->emailModerator]);
-        $sentence = $this->sentenceModeratorRepository->findNextSentence($moderator->getId());
+        $sentence = $this->sentenceModeratorRepository->findNextSentence($moderator->getEmail());
 
         $this->assertEquals('author 1', $sentence->getAuthor());
         $this->assertEquals([1], $sentence->getIndicators());
         $this->assertEquals('Se parli così è perchè non capisci un cazzo come tutti quelli che fanno lavoro 1 !', $sentence->getContent());
     }
 
-    public function testInsertVote()
+    public function testInsertVote(): void
     {
         $author = 'author 1';
         $votes = [0,1];
@@ -48,7 +48,7 @@ class SentenceModeratorRepositoryTest extends KernelTestCase
         $sentenceModerator = $this->sentenceModeratorRepository->findAll();
 
         $this->assertEquals([0,1], $sentenceModerator[0]->getVotes());
-        $this->assertEquals($moderator->getId(), $sentenceModerator[0]->getModerator()->getId());
+        $this->assertEquals($moderator->getEmail(), $sentenceModerator[0]->getModerator()->getEmail());
         $this->assertEquals($sentence->getId(), $sentenceModerator[0]->getSentence()->getId());
         shell_exec('php bin/console doctrine:fixtures:load');
     }

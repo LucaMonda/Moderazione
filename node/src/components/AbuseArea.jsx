@@ -53,7 +53,7 @@ class AbuseArea extends Component {
         if(keyPressed==="enter") {
             this.handleClickButton();
         }else{
-            this.handleClickItem(keyPressed)
+            this.handleClickItem(parseInt(keyPressed))
         }
     }
 
@@ -67,27 +67,19 @@ class AbuseArea extends Component {
 
     disableItems(){
         let items = this.state.items;
-        items.forEach((item) => {
-            item.checked = false;
-        });
+        items.forEach((item) => item.checked = false);
         this.setState({items: items})
     }
 
     setIndicators(){
         let items = this.state.items;
-        items.forEach(item => {
-            item.checked = this.props.indicators.includes(item.value);
-        });
+        items.forEach(item => item.checked = this.props.indicators.includes(item.value));
         this.setState({items: items});
     }
 
     findCheckedItems(items){
         let clickedItems = [];
-        items.forEach((item) => {
-            if (item.checked){
-                clickedItems.push(item.value)
-            }
-        });
+        items.filter(item => item.checked).map(item => clickedItems.push(item.value));
         return clickedItems;
     }
 
@@ -117,7 +109,7 @@ class AbuseArea extends Component {
                 </div>
                 <KeyboardEventHandler
                     handleKeys={['1', '2', '3', '4', "enter"]}
-                    onKeyEvent={(key) => this.handleKeyboardEvent(parseInt(key))}
+                    onKeyEvent={(key) => this.handleKeyboardEvent(key)}
                     isDisabled={this.props.disable}
                     />
                 <div className="button-container">

@@ -7,10 +7,12 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            sentenceId: null,
-            author: "",
-            content: "",
-            indicators: "",
+            sentence:{
+                id: null,
+                author: "",
+                content: "",
+                indicators: "",
+            },
             disable: false,
         };
         this.getSentence = this.getSentence.bind(this);
@@ -39,7 +41,7 @@ class App extends Component {
     }
 
      getSentence(){
-        return fetch('http://localhost:8000/sentence',{
+        return fetch('http://localhost:8080/index.php/sentence',{
             mode: 'cors',
             headers : {
                 'Content-Type': 'application/json',
@@ -50,7 +52,7 @@ class App extends Component {
         .then(data => {
             if (data.length !== 0) {
                 this.setState({
-                    sentenceId: data.id,
+                    id: data.id,
                     author: data.author,
                     content: data.content,
                     indicators : data.indicators,
@@ -59,10 +61,11 @@ class App extends Component {
                 this.sentenceTransition("rgba(135,206,235, 0.3)");
             }else{
                 this.setState({
-                    content:"ATTENZIONE! Non ci sono più frasi da moderare.",
-                    disable:true,
+                    id: "",
                     author: "",
-                    indicators : []
+                    content: "ATTENZIONE! Non ci sono più frasi da moderare.",
+                    indicators : [],
+                    disable:true
                 });
                 this.sentenceTransition("rgba(255,0,0, 0.3)");
             }
@@ -76,12 +79,12 @@ class App extends Component {
 
      sendSentence(clickedItems) {
         const obj = {
-            id: this.state.sentenceId,
+            id: this.state.id,
             moderator: "moderator1@gmail.com",
             categories: clickedItems
         };
 
-        return fetch('http://localhost:8000/sentence',{
+        return fetch('http://localhost:8080/index.php/sentence',{
             method: "POST",
             mode: "cors",
             headers: {

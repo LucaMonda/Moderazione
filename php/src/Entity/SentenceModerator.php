@@ -24,7 +24,7 @@ class SentenceModerator
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Moderator", inversedBy="sentenceModerators")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, referencedColumnName="email", name="moderator_email")
      */
     private $moderator;
 

@@ -8,7 +8,7 @@ describe("AbuseArea", () => {
         disable:null,
         sendSentence:  () => {
              jest.fn()},
-            indicators: [0,1],
+            indicators: [1,2],
         handleSubmit() {
             jest.fn()}
     };
@@ -29,10 +29,10 @@ describe("AbuseArea", () => {
 
     it("changes value of a checkbox in handleClickItem", () =>{
         wrapper.setProps({ disable: false });
-        wrapper.instance().handleClickItem(0);
+        wrapper.instance().handleClickItem(1);
         expect(wrapper.instance().state.items[0].checked).toEqual(true);
         wrapper.setProps({ disable: true });
-        wrapper.instance().handleClickItem(0);
+        wrapper.instance().handleClickItem(1);
         expect(wrapper.instance().state.items[0].checked).toEqual(true);
         });
 
